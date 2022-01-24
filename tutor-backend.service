@@ -1,0 +1,13 @@
+[Unit]
+Description=NodeJS Tutor Schedule App
+After=network.target
+ 
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/nodeapp/tutor-backend/
+ExecStart=/usr/bin/npm run start
+Restart=on-failure
+ 
+[Install]
+WantedBy=multi-user.target

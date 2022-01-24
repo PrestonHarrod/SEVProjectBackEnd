@@ -19,7 +19,9 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.tutorials = require("./tutorial.model.js")(sequelize, Sequelize);
+//all models go here VVVVVVVVVVVVVVVV
+
+
 
 module.exports = db;
 
