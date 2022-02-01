@@ -8,10 +8,14 @@ module.exports = (sequelize, Sequelize) => {
         type: DataTypes.INTEGER,
         primaryKey: true, 
         unique: true,
+        autoIncrement: true, 
         allowNull: false
       },
       organizationID: {
         type: DataTypes.INTEGER
+      },
+      roleID: {
+          type: DataTypes.INTEGER
       },
       fName:{
         type: DataTypes.STRING
