@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
 //all routes go here
 // VVVVVVVVVVVVVVV
 
-require("./app/routes.location.routes")(app);
+
 require("./app/routes.org.routes")(app);
 require("./app/routes.request.routes")(app);
 require("./app/routes.session.routes")(app);
@@ -36,9 +36,10 @@ require("./app/routes.subject.routes")(app);
 require("./app/routes.tutorSlots.routes")(app);
 require("./app/routes.type.routes")(app);
 require("./app/routes.user.routes")(app);
-require("./app/routes.userRoles.routes")(app);
+require("./app/routes.userRole.routes")(app);
 require("./app/routes.tutorSubject.routes")(app);
 require("./app/routes.loginToken.routes")(app);
+require("./app/routes.location.routes")(app);
 
 
 
