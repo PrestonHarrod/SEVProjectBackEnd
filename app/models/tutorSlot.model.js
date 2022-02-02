@@ -22,10 +22,10 @@ module.exports = (sequelize, Sequelize) => {
         type: DataTypes.STRING
       },
       startTime: { //format YYYY-MM-DD HH:MI:SS
-          type: DataTypes.DATEONLY
+          type: DataTypes.TIME
       },
       endTime:{
-        type: DataTypes.DATE
+        type: DataTypes.TIME
       },
       status:{
         type: DataTypes.STRING

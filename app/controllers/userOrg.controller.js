@@ -1,8 +1,8 @@
 const db = require("../models");
-const User = db.users;
+const UserOrg = db.userOrgs;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new User
+// Create and Save a new org
 exports.create = (req, res) => {
     // Validate request
     if (!req.body.id) {
@@ -12,128 +12,124 @@ exports.create = (req, res) => {
       return;
     }
   
-    // Create a User
+    // Create a userOrgs
     //comment for autodeploy
-    const user = {
+    const userOrg = {
+      id: req.body.id,
       userID: req.body.userID,
-      organizationID: req.body.organizationID,
-      fName: req.body.fName,
-      lName: req.body.lName,
-      email: req.body.email,
-      level: req.body.level
-   
+      orgID: req.body.orgID,
+      
     };
   
-    // Save User in the database
-    User.create(user)
+    // Save Type in the database
+    UserOrg.create(userOrg)
       .then(data => {
         res.send(data);
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while creating the User."
+            err.message || "Some error occurred while creating the userRole."
         });
       });
   }
 
-// Retrieve all Users from the database.
+// Retrieve all userOrgs from the database.
 exports.findAll = (req, res) => {
     const id = req.query.id;
   
-    User.findAll()
+    UserOrg.findAll()
       .then(data => {
         res.send(data);
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving Users."
+            err.message || "Some error occurred while retrieving Types."
         });
       });
   };
 
 
-
-// Find a single User with an id
+// Find a single userOrg with an id
 exports.findOne = (req, res) => {
     const id = req.query.id;
 
-  User.findByPk(id)
+  UserOrg.findByPk(id)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error retrieving User with id=" + id
+        message: "Error retrieving UserOrg with id=" + id
       });
     });
 };
 
 
-// Update a User by the id in the request
+// Update a UserOrg by the id in the request
 exports.update = (req, res) => {
     const id = req.query.id;
   
-    User.update(req.body, {
+    UserOrg.update(req.body, {
       where: { id: id }
     })
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "User was updated successfully."
+            message: "Org was updated successfully."
           });
         } else {
           res.send({
-            message: `Cannot update User with id=${userID}. Maybe User was not found or req.body is empty!`
+            message: `Cannot update Role with id=${id}. Maybe Role was not found or req.body is empty!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error updating User with id=" + userID
+          message: "Error updating Role with id=" + id
         });
       });
   };
 
-// Delete a User with the specified id in the request
+// Delete a Type with the specified id in the request
 exports.delete = (req, res) => {
     const id = req.query.id;
   
-    User.destroy({
+    UserOrg.destroy({
       where: { id: id }
     })
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "User was deleted successfully!"
+            message: "Type was deleted successfully!"
           });
         } else {
           res.send({
-            message: `Cannot delete User with id=${userID}. Maybe User was not found!`
+            message: `Cannot delete Type with id=${id}. Maybe the type was not found!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Could not delete User with id=" + userID
+          message: "Could not delete type with id=" + id
         });
       });
   };
 
-// Delete all Users from the database.
+// Delete all Typess from the database.
 exports.deleteAll = (req, res) => {
-    User.destroy({
+    UserOrg.destroy({
       where: {},
       truncate: false
     })
       .then(nums => {
-        res.send({ message: `${nums} Users were deleted successfully!` });
+        res.send({ message: `${nums} all userOrgs were deleted successfully!` });
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while removing all Users."
+            err.message || "Some error occurred while removing all UserOrgs."
         });
       });
   };
