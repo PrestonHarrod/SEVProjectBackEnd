@@ -22,7 +22,7 @@ module.exports = app => {
     // Delete all user
     router.delete("/", users.deleteAll);
   
-    app.use('/api/admins', router);
+    app.use('/api/users', router);
   };
 
 

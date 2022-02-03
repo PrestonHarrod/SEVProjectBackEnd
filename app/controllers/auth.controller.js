@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 const authconfig = require('../config/auth.config.js');
 
 var jwt = require("jsonwebtoken");
-const { advisor } = require("../models");
+const { user } = require("../models");
 exports.login = async (req, res) => {
 
   if (!req.body.accessToken) {
@@ -39,11 +39,11 @@ exports.login = async (req, res) => {
   await User.findOne({ where : {email:email}})
     .then(data => {
         if (data != null) {
-        let founduser = data.dataValues;
+        let user = data.dataValues;
         token = jwt.sign({ id: founduser.email }, authconfig.secret, {expiresIn: 86400}); // 24 hours
-        email = founduser.email;
-        userID = founduser.userID
-        fName = founduser.fName;
+        email = user.email;
+        userID = user.userID
+        fName = user.fName;
         userFound = true;
 
         }
