@@ -4,7 +4,8 @@
   "description": "our new backend using sequelize",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1", 
+    "bundle": "mkdir deploy && cp -r  node_modules app server.js package.json package-lock.json course-backend.service deploy && rm deploy/app/config/db.config.js && mv deploy/app/config/prod.db.config.js deploy/app/config/db.config.js"
   },
   "keywords": [
     "nodejs",
