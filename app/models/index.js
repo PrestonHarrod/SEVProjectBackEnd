@@ -36,7 +36,7 @@ db.userOrgs = require("./userOrg.model.js")(sequelize, Sequelize);
 //relationships -- tutorSubjecs
 
 db.subjects.hasMany(db.tutorSubjects, {
-  as: 'tutorSubject'
+  as: 'tutorSubject', foreignKey: "subjectID"
 });
 
 db.tutorSubjects.belongsTo(db.subjects, {
@@ -44,7 +44,7 @@ db.tutorSubjects.belongsTo(db.subjects, {
 });
 
 db.users.hasMany(db.tutorSubjects, {
-  as: 'tutorSubject'
+  as: 'tutorSubject', foreignKey: "tutorID"
 });
 
 db.tutorSubjects.belongsTo(db.users, {
@@ -66,7 +66,7 @@ db.subjects.belongsToMany(db.users, {
 //------------ userRoles
 
 db.users.hasMany(db.userRoles, {
-  as: 'userRoles'
+  as: 'userRoles', foreignKey: "userID"
 });
 
 db.userRoles.belongsTo(db.users, {
@@ -74,7 +74,7 @@ db.userRoles.belongsTo(db.users, {
 });
 
 db.roles.hasMany(db.userRoles, {
-  as: 'userRoles'
+  as: 'userRoles', foreignKey: "roleID"
 });
 
 db.userRoles.belongsTo(db.roles, {
@@ -110,7 +110,7 @@ db.loginTokens.belongsTo(db.roles, {
 
 //------------userOrgs
 db.orgs.hasMany(db.userOrgs, {
-  as: 'userOrg'
+  as: 'userOrg', foreignKey: "orgID"
 });
 
 db.userOrgs.belongsTo(db.orgs, {
@@ -119,7 +119,7 @@ db.userOrgs.belongsTo(db.orgs, {
 
 
 db.users.hasMany(db.userOrgs, {
-  as: 'userOrg'
+  as: 'userOrg', foreignKey: "userID"
 });
 
 db.userOrgs.belongsTo(db.users, {
@@ -153,11 +153,11 @@ db.sessions.belongsTo(db.locations, {
 });
 
 db.locations.hasMany(db.sessions, {
-  as: 'sessions'
+  as: 'sessions', foreignKey: "locationID"
 });
 
 db.users.hasMany(db.sessions, {
-  as: 'sessions'
+  as: 'sessions', foreignKey: "sessionID"
 });
 
 //------------Tutorslot
@@ -170,7 +170,7 @@ db.tutorSlots.belongsTo(db.users, {
 });
 
 db.users.hasMany(db.tutorSlots, {
-  as: 'tutorSlots'
+  as: 'tutorSlots', foreignKey: "userID"
 });
 
 //----------Request
@@ -182,11 +182,11 @@ db.requests.belongsTo(db.orgs, {
 });
 
 db.users.hasMany(db.requests, {
-  as: 'requests'
+  as: 'requests', foreignKey: "userID"
 });
 
 db.orgs.hasMany(db.requests, {
-  as: 'requests'
+  as: 'requests', foreignKey: "orgID"
 });
 
 module.exports = db;
