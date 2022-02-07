@@ -17,8 +17,10 @@ exports.create = (req, res) => {
     const tutorSlot = {
         tutorSlotID: req.body.tutorSlotID,
           tutorID: req.body.tutorSlotID,
-          startDateTime:req.body.startDateTime,
-          endDateTime:req.body.endDateTime,
+          studentID: req.body.studentID,
+          day: req.body.day,
+          startTime:req.body.startTime,
+          endTime:req.body.endTime,
           status: req.body.status,
           isScheduable: req.body.isScheduable
    

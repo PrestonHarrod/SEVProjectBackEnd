@@ -2,23 +2,27 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize, Sequelize) => {
-    const Org = sequelize.define("org", {
-
-      orgID: {
+    const UserOrg = sequelize.define("userOrg", {
+    id:{
         type: DataTypes.INTEGER,
         primaryKey: true, 
         unique: true,
         autoIncrement: true, 
         allowNull: false
+        },
+      userID:{
+        type: DataTypes.INTEGER,
+        allowNull: false
       },
-      name:{
-        type: DataTypes.STRING
+      orgID:{
+        type: DataTypes.INTEGER,
+        allowNull: false
       },
     },
       {
-        tableName: 'orgs'
+        tableName: 'userOrg'
 
     });
 
-    return Org;
+    return UserRole;
   };

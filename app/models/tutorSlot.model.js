@@ -8,16 +8,24 @@ module.exports = (sequelize, Sequelize) => {
         type: DataTypes.INTEGER,
         primaryKey: true, 
         unique: true,
-        allowNull: false
+        allowNull: false,
+        autoIncrement: true
+        
       },
       tutorID: {
         type: DataTypes.INTEGER
       },
-      startDateTime: {
-          type: DataTypes.DATE
+      studentID: {
+        type: DataTypes.INTEGER
       },
-      endDateTime:{
-        type: DataTypes.DATE
+      day: {
+        type: DataTypes.STRING
+      },
+      startTime: { //format YYYY-MM-DD HH:MI:SS
+          type: DataTypes.TIME
+      },
+      endTime:{
+        type: DataTypes.TIME
       },
       status:{
         type: DataTypes.STRING
