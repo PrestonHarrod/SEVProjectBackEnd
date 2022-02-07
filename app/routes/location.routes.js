@@ -1,6 +1,6 @@
 module.exports = app => {
-    const locations = require("../controllers/location.controller.js");
-    const auth = require("../controllers/util.controller.js");
+    const locations = require("../controllers/location.controller");
+    //const auth = require("./controllers/util.controller");
   
     var router = require("express").Router();
   

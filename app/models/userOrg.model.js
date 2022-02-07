@@ -24,5 +24,5 @@ module.exports = (sequelize, Sequelize) => {
 
     });
 
-    return UserRole;
+    return UserOrg;
   };
