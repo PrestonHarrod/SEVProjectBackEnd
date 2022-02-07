@@ -32,6 +32,8 @@ db.tutorSubjects = require("./tutorSubject.model.js")(sequelize, Sequelize);
 db.loginTokens = require("./loginToken.model.js")(sequelize, Sequelize);
 db.userRoles = require("./userRole.model.js")(sequelize, Sequelize);
 db.userOrgs = require("./userOrg.model.js")(sequelize, Sequelize);
+db.userOrgs = require("./userOrg.model.js")(sequelize, Sequelize);
+
 
 //relationships -- tutorSubjecs
 
@@ -171,6 +173,26 @@ db.users.hasMany(db.requests, {
 db.orgs.hasMany(db.requests, {
   as: 'requests'
 });
+
+//tutorSlotRequest
+
+//TutorSlotID
+
+//studentID
+db.tutorSlotRequests.belongsTo(db.users, {
+  foreignKey: 'studentID'
+});
+db.users.hasMany(db.tutorSlotRequests, {
+  as: 'tutorSlotRequests'
+});
+//subjectID
+db.tutorSlotRequests.belongsTo(db.subjects, {
+  foreignKey: 'subjectID'
+});
+db.subjects.hasMany(db.tutorSlotRequests, {
+  as: 'tutorSlotRequests'
+});
+
 
 module.exports = db;
 
