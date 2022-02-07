@@ -100,9 +100,9 @@ db.loginTokens.belongsTo(db.roles, {
 });
 
 //------------User
-db.users.belongsTo(db.userOrgs, {
-  foreignKey: 'userID'
-});
+// db.users.belongsTo(db.userOrgs, {
+//   foreignKey: 'userID'
+// });
 
 db.userOrgs.hasMany(db.users, {
   as: 'users'
