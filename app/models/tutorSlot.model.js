@@ -18,6 +18,9 @@ module.exports = (sequelize, Sequelize) => {
       studentID: {
         type: DataTypes.INTEGER
       },
+      tutorSlotRequestID: {
+        type: DataTypes.INTEGER
+      },
       day: {
         type: DataTypes.STRING
       },

@@ -38,7 +38,7 @@ db.userOrgs = require("./userOrg.model.js")(sequelize, Sequelize);
 //relationships -- tutorSubjecs
 
 db.subjects.hasMany(db.tutorSubjects, {
-  as: 'tutorSubject'
+  as: 'tutorSubject', foreignKey: "subjectID"
 });
 
 db.tutorSubjects.belongsTo(db.subjects, {
@@ -46,7 +46,7 @@ db.tutorSubjects.belongsTo(db.subjects, {
 });
 
 db.users.hasMany(db.tutorSubjects, {
-  as: 'tutorSubject'
+  as: 'tutorSubject', foreignKey: "tutorID"
 });
 
 db.tutorSubjects.belongsTo(db.users, {
@@ -68,7 +68,7 @@ db.subjects.belongsToMany(db.users, {
 //------------ userRoles
 
 db.users.hasMany(db.userRoles, {
-  as: 'userRoles'
+  as: 'userRoles', foreignKey: "userID"
 });
 
 db.userRoles.belongsTo(db.users, {
@@ -76,11 +76,11 @@ db.userRoles.belongsTo(db.users, {
 });
 
 db.roles.hasMany(db.userRoles, {
-  as: 'userRoles'
+  as: 'userRoles', foreignKey: "roleID"
 });
 
 db.userRoles.belongsTo(db.roles, {
-  foreignKey: 'roleID'
+  foreignKey: 'roleID' 
 });
 
 db.users.belongsToMany(db.roles, {
@@ -107,7 +107,7 @@ db.users.belongsTo(db.userOrgs, {
 });
 
 db.userOrgs.hasMany(db.users, {
-  as: 'users'
+  as: 'users', foreignKey: 'userID'
 });
 
 //------------userOrgs
@@ -138,11 +138,11 @@ db.sessions.belongsTo(db.locations, {
 });
 
 db.locations.hasMany(db.sessions, {
-  as: 'sessions'
+  as: 'sessions', foreignKey: "locationID"
 });
 
 db.users.hasMany(db.sessions, {
-  as: 'sessions'
+  as: 'sessions', foreignKey: "sessionID"
 });
 
 //------------Tutorslot
@@ -155,7 +155,7 @@ db.tutorSlots.belongsTo(db.users, {
 });
 
 db.users.hasMany(db.tutorSlots, {
-  as: 'tutorSlots'
+  as: 'tutorSlots', foreignKey: "userID"
 });
 
 //----------Request
@@ -167,30 +167,37 @@ db.requests.belongsTo(db.orgs, {
 });
 
 db.users.hasMany(db.requests, {
-  as: 'requests'
+  as: 'requests',foreignKey: "userID"
 });
 
 db.orgs.hasMany(db.requests, {
-  as: 'requests'
+  as: 'requests', foreignKey: "orgID"
 });
+
+//TutorSlot
+db.tutorSlots.belongsTo(db.tutorSlotRequests, {
+  foreignKey: 'tutorSlotRequestID'
+});
+db.tutorSlotRequests.hasMany(db.tutorSlots, {
+  as: 'tutorSlotRequests',
+  foreignKey: "tutorSlotID"
+});
+
 
 //tutorSlotRequest
 
-//TutorSlotID
-
-//studentID
 db.tutorSlotRequests.belongsTo(db.users, {
   foreignKey: 'studentID'
 });
 db.users.hasMany(db.tutorSlotRequests, {
-  as: 'tutorSlotRequests'
+  as: 'tutorSlotRequests', foreignKey: 'studentID'
 });
 //subjectID
 db.tutorSlotRequests.belongsTo(db.subjects, {
   foreignKey: 'subjectID'
 });
 db.subjects.hasMany(db.tutorSlotRequests, {
-  as: 'tutorSlotRequests'
+  as: 'tutorSlotRequests', foreignKey: 'subjectID'
 });
 
 
