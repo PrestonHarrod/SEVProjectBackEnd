@@ -32,6 +32,8 @@ db.tutorSubjects = require("./tutorSubject.model.js")(sequelize, Sequelize);
 db.loginTokens = require("./loginToken.model.js")(sequelize, Sequelize);
 db.userRoles = require("./userRole.model.js")(sequelize, Sequelize);
 db.userOrgs = require("./userOrg.model.js")(sequelize, Sequelize);
+db.userOrgs = require("./userOrg.model.js")(sequelize, Sequelize);
+
 
 //relationships -- tutorSubjecs
 
@@ -52,13 +54,13 @@ db.tutorSubjects.belongsTo(db.users, {
 });
 
 db.users.belongsToMany(db.subjects, {
-  through: "tutorsubject", 
+  through: "tutorSubject", 
   as: "subjects",
   foreignKey: "subjectID"
 });
 
 db.subjects.belongsToMany(db.users, {
-  through: "tutorsubject", 
+  through: "tutorSubject", 
   as: "users",
   foreignKey: "tutorID"
 });
@@ -78,17 +80,19 @@ db.roles.hasMany(db.userRoles, {
 });
 
 db.userRoles.belongsTo(db.roles, {
-  foreignKey: 'roleID'
+  foreignKey: 'roleID' 
 });
 
 db.users.belongsToMany(db.roles, {
+  through: "userRole", 
+  as: "roles",
   through: "userrole", 
    as: "roles",
   foreignKey: "roleID"
 });
 
 db.roles.belongsToMany(db.users, {
-  through: "userrole", 
+  through: "userRole", 
   as: "users",
   foreignKey: "userID"
 });
@@ -117,23 +121,19 @@ db.userOrgs.belongsTo(db.orgs, {
   foreignKey: 'orgID'
 });
 
+db.userOrgs.hasMany(db.users, {
+  as: 'users', foreignKey: 'userID'
 
-db.users.hasMany(db.userOrgs, {
-  as: 'userOrg', foreignKey: "userID"
-});
-
-db.userOrgs.belongsTo(db.users, {
-  foreignKey: 'userID'
 });
 
 db.users.belongsToMany(db.orgs, {
-  through: "userorg", 
+  through: "userOrg", 
   as: "orgs",
   foreignKey: "orgID"
 });
 
 db.orgs.belongsToMany(db.users, {
-  through: "userorg", 
+  through: "userOrg", 
   as: "users",
   foreignKey: "userID"
 });
@@ -182,12 +182,40 @@ db.requests.belongsTo(db.orgs, {
 });
 
 db.users.hasMany(db.requests, {
-  as: 'requests', foreignKey: "userID"
+  as: 'requests',foreignKey: "userID"
 });
 
 db.orgs.hasMany(db.requests, {
   as: 'requests', foreignKey: "orgID"
 });
+
+//TutorSlot
+db.tutorSlots.belongsTo(db.tutorSlotRequests, {
+  foreignKey: 'tutorSlotRequestID'
+});
+db.tutorSlotRequests.hasMany(db.tutorSlots, {
+  as: 'tutorSlotRequests',
+  foreignKey: "tutorSlotID"
+});
+
+
+//tutorSlotRequest
+
+db.tutorSlotRequests.belongsTo(db.users, {
+  foreignKey: 'studentID'
+});
+db.users.hasMany(db.tutorSlotRequests, {
+  as: 'tutorSlotRequests', foreignKey: 'studentID'
+
+});
+//subjectID
+db.tutorSlotRequests.belongsTo(db.subjects, {
+  foreignKey: 'subjectID'
+});
+db.subjects.hasMany(db.tutorSlotRequests, {
+  as: 'tutorSlotRequests', foreignKey: 'subjectID'
+});
+
 
 module.exports = db;
 

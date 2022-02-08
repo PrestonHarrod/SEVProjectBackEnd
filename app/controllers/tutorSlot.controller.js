@@ -22,7 +22,8 @@ exports.create = (req, res) => {
           startTime:req.body.startTime,
           endTime:req.body.endTime,
           status: req.body.status,
-          isScheduable: req.body.isScheduable
+          isScheduable: req.body.isScheduable,
+          tutorSlotRequestID: req.body.tutorSlotRequestID
    
     };
   
