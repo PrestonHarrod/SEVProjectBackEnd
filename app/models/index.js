@@ -54,13 +54,13 @@ db.tutorSubjects.belongsTo(db.users, {
 });
 
 db.users.belongsToMany(db.subjects, {
-  through: "tutorSubject", 
+  through: "tutorsubject", 
   as: "subjects",
   foreignKey: "subjectID"
 });
 
 db.subjects.belongsToMany(db.users, {
-  through: "tutorSubject", 
+  through: "tutorsubject", 
   as: "users",
   foreignKey: "tutorID"
 });
@@ -84,15 +84,13 @@ db.userRoles.belongsTo(db.roles, {
 });
 
 db.users.belongsToMany(db.roles, {
-  through: "userRole", 
-  as: "roles",
   through: "userrole", 
    as: "roles",
   foreignKey: "roleID"
 });
 
 db.roles.belongsToMany(db.users, {
-  through: "userRole", 
+  through: "userrole", 
   as: "users",
   foreignKey: "userID"
 });
@@ -127,13 +125,13 @@ db.userOrgs.hasMany(db.users, {
 });
 
 db.users.belongsToMany(db.orgs, {
-  through: "userOrg", 
+  through: "userorg", 
   as: "orgs",
   foreignKey: "orgID"
 });
 
 db.orgs.belongsToMany(db.users, {
-  through: "userOrg", 
+  through: "userorg", 
   as: "users",
   foreignKey: "userID"
 });
