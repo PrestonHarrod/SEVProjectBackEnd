@@ -28,6 +28,7 @@ db.roles = require("./role.model.js")(sequelize, Sequelize);
 db.sessions = require("./session.model.js")(sequelize, Sequelize);
 db.subjects = require("./subject.model.js")(sequelize, Sequelize);
 db.tutorSlots = require("./tutorSlot.model.js")(sequelize, Sequelize);
+db.tutorSlotRequests = require("./tutorSlotRequest.model.js")(sequelize, Sequelize);
 db.tutorSubjects = require("./tutorSubject.model.js")(sequelize, Sequelize);
 db.loginTokens = require("./loginToken.model.js")(sequelize, Sequelize);
 db.userRoles = require("./userRole.model.js")(sequelize, Sequelize);
