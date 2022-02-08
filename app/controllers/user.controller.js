@@ -40,6 +40,7 @@ exports.create = (req, res) => {
 // Retrieve all Users from the database.
 exports.findAll = (req, res) => {
     const id = req.query.id;
+    console.log(id);
   
     User.findAll()
       .then(data => {
@@ -58,6 +59,7 @@ exports.findAll = (req, res) => {
 // Find a single User with an id
 exports.findOne = (req, res) => {
     const id = req.query.id;
+    console.log(id);
 
   User.findByPk(id)
     .then(data => {

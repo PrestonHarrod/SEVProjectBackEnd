@@ -40,7 +40,7 @@ exports.login = async (req, res) => {
     .then(data => {
         if (data != null) {
         let user = data.dataValues;
-        token = jwt.sign({ id: founduser.email }, authconfig.secret, {expiresIn: 86400}); // 24 hours
+        token = jwt.sign({ id: user.email }, authconfig.secret, {expiresIn: 86400}); // 24 hours
         email = user.email;
         userID = user.userID
         fName = user.fName;
