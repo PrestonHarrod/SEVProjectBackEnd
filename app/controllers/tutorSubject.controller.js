@@ -1,5 +1,5 @@
 const db = require("../models");
-const tutorSubject = db.tutorSubject;
+const tutorSubject = db.tutorSubjects;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new org
@@ -36,11 +36,17 @@ exports.create = (req, res) => {
 
 // Retrieve all tutorSubjects from the database.
 exports.findAll = (req, res) => {
-    const id = req.query.id;
-  
-    TutorSubject.findAll()
+    //const id = req.query.id;
+      const tutorID = req.query.tutorID;
+      var condition = tutorID ? {
+        tutorID: {
+          [Op.like]: `%${tutorID}%`
+        }
+      } : null;
+    tutorSubject.findAll({include: ["subject"], where: condition})
       .then(data => {
         res.send(data);
+        console.log(data);
       })
       .catch(err => {
         res.status(500).send({

@@ -40,7 +40,7 @@ require("./app/routes/userRole.routes")(app);
 require("./app/routes/tutorSubject.routes")(app);
 require("./app/routes/loginToken.routes")(app);
 require("./app/routes/location.routes")(app);
-require("./app/routes/userOrgs.routes")(app);
+require("./app/routes/userOrg.routes")(app);
 require("./app/routes/auth.routes")(app);
 
 
