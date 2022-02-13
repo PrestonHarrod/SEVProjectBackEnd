@@ -51,7 +51,7 @@ exports.findAll = (req, res) => {
 
 // Find a single Org with an id
 exports.findOne = (req, res) => {
-    const id = req.query.id;
+    const id = req.params.id;
 
   Org.findByPk(id)
     .then(data => {

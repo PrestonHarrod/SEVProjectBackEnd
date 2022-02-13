@@ -52,7 +52,7 @@ exports.findAll = (req, res) => {
 
 // Find a single LoginToken with an id
 exports.findOne = (req, res) => {
-    const id = req.query.id;
+    const id = req.params.id;
 
   LoginToken.findByPk(id)
     .then(data => {
