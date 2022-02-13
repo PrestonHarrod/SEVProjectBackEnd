@@ -54,7 +54,7 @@ exports.findAll = (req, res) => {
 
 // Find a single Subject with an id
 exports.findOne = (req, res) => {
-    const id = req.query.id;
+    const id = req.params.id;
 
   Subject.findByPk(id)
     .then(data => {
