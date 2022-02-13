@@ -53,7 +53,7 @@ exports.findAll = (req, res) => {
 
 // Find a single userRole with an id
 exports.findOne = (req, res) => {
-    const id = req.query.id;
+    const id = req.params.id;
 
   UserRole.findByPk(id)
     .then(data => {
