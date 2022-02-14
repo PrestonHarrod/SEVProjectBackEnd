@@ -33,7 +33,7 @@ db.tutorSubjects = require("./tutorSubject.model.js")(sequelize, Sequelize);
 db.loginTokens = require("./loginToken.model.js")(sequelize, Sequelize);
 db.userRoles = require("./userRole.model.js")(sequelize, Sequelize);
 db.userOrgs = require("./userOrg.model.js")(sequelize, Sequelize);
-db.userOrgs = require("./userOrg.model.js")(sequelize, Sequelize);
+db.tutorSlotRequests = require("./tutorSlotRequest.model")(sequelize, Sequelize)
 
 
 //relationships -- tutorSubjecs
@@ -81,7 +81,7 @@ db.roles.hasMany(db.userRoles, {
 });
 
 db.userRoles.belongsTo(db.roles, {
-  foreignKey: 'roleID' 
+  foreignKey: 'roleID'
 });
 
 db.users.belongsToMany(db.roles, {
@@ -120,9 +120,13 @@ db.userOrgs.belongsTo(db.orgs, {
   foreignKey: 'orgID'
 });
 
-db.userOrgs.hasMany(db.users, {
-  as: 'users', foreignKey: 'userID'
 
+db.users.hasMany(db.userOrgs, {
+  as: 'userOrg', foreignKey: "userID"
+});
+
+db.userOrgs.belongsTo(db.users, {
+  foreignKey: 'userID'
 });
 
 db.users.belongsToMany(db.orgs, {
@@ -181,12 +185,14 @@ db.requests.belongsTo(db.orgs, {
 });
 
 db.users.hasMany(db.requests, {
-  as: 'requests',foreignKey: "userID"
+  as: 'requests', foreignKey: "userID"
 });
 
 db.orgs.hasMany(db.requests, {
   as: 'requests', foreignKey: "orgID"
 });
+
+module.exports = db;
 
 //TutorSlot
 db.tutorSlots.belongsTo(db.tutorSlotRequests, {
