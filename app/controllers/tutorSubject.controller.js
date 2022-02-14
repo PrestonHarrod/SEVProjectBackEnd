@@ -4,13 +4,6 @@ const Op = db.Sequelize.Op;
 
 // Create and Save a new org
 exports.create = (req, res) => {
-    // Validate request
-    if (!req.body.id) {
-      res.status(400).send({
-        message: "Content can not be empty!"
-      });
-      return;
-    }
   
     // Create a tutorSubject
     //comment for autodeploy
@@ -36,19 +29,25 @@ exports.create = (req, res) => {
 
 // Retrieve all tutorSubjects from the database.
 exports.findAll = (req, res) => {
-    const id = req.query.id;
-  
-    TutorSubject.findAll()
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving Types."
-        });
+  const tutorID = req.query.tutorID;
+  console.log(tutorID + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+  var condition = tutorID ? {
+    tutorID: {
+      [Op.like]: `%${tutorID}%`
+    }
+  } : null;
+
+  TutorSubject.findAll({ where: condition})
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving Subjects."
       });
-  };
+    });
+};
 
 
 // Find a single tutorSubject with an id
@@ -119,8 +118,12 @@ exports.delete = (req, res) => {
 
 // Delete all Typess from the database.
 exports.deleteAll = (req, res) => {
+    const tutorID = req.query.tutorID;
+    const subjectID = req.query.subjectID;
+
     TutorSubject.destroy({
-      where: {},
+      where: { tutorID: tutorID,
+               subjectID: subjectID},
       truncate: false
     })
       .then(nums => {
