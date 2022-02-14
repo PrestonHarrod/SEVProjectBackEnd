@@ -124,9 +124,9 @@ db.users.hasMany(db.userOrgs, {
   as: 'userOrg', foreignKey: "userID"
 });
 
-db.userOrgs.belongsTo(db.users, {
-  foreignKey: 'userID'
-});
+// db.userOrgs.belongsTo(db.users, {
+//   foreignKey: 'userID'
+// });
 
 db.users.belongsToMany(db.orgs, {
   through: "userorg", 
