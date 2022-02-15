@@ -91,7 +91,7 @@ db.users.belongsToMany(db.roles, {
 });
 
 db.roles.belongsToMany(db.users, {
-  through: "userRole", 
+  through: "userrole", 
   as: "users",
   foreignKey: "userID"
 });

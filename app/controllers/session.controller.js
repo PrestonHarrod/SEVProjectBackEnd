@@ -42,7 +42,7 @@ exports.create = (req, res) => {
 
 // Retrieve all sessions from the database.
 exports.findAll = (req, res) => {
-    const id = req.query.id;
+  const id = req.query.id;
   
     Session.findAll()
       .then(data => {
@@ -59,7 +59,8 @@ exports.findAll = (req, res) => {
 
 // Find a single Session with an id
 exports.findOne = (req, res) => {
-    const id = req.query.id;
+    const id = req.params.id;
+    console.log(id)
 
   Session.findByPk(id)
     .then(data => {

@@ -51,7 +51,7 @@ exports.findAll = (req, res) => {
 
 // Find a single Role with an id
 exports.findOne = (req, res) => {
-    const id = req.query.id;
+    const id = req.params.id;
 
   Role.findByPk(id)
     .then(data => {

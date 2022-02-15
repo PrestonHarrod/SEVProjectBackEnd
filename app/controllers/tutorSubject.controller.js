@@ -1,5 +1,6 @@
 const db = require("../models");
 const tutorSubject = db.tutorSubjects;
+
 const Op = db.Sequelize.Op;
 
 // Create and Save a new org
@@ -59,7 +60,7 @@ exports.findAll = (req, res) => {
 
 // Find a single tutorSubject with an id
 exports.findOne = (req, res) => {
-    const id = req.query.id;
+    const id = req.params.id;
 
   TutorSubject.findByPk(id)
     .then(data => {
