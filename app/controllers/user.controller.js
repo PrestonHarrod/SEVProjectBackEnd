@@ -18,7 +18,6 @@ exports.create = (req, res) => {
     //comment for autodeploy
     const user = {
       userID: req.body.userID,
-      organizationID: req.body.organizationID,
       fName: req.body.fName,
       lName: req.body.lName,
       email: req.body.email,
@@ -67,7 +66,7 @@ exports.findAllTutors = (req, res) => {
     } : null;
     User.findAll({
       raw: true,
-      attributes: ['organizationID', 'userID', 'fName', 'lName'], 
+      attributes: ['userID', 'fName', 'lName'], 
       include: 
         [ 
           //  {model: userOrgs, as: 'userOrg', attributes: ['userID', 'orgID'], 
