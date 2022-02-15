@@ -1,4 +1,6 @@
+const { userRoles, roles, tutorSubjects, subjects, orgs, userOrgs } = require("../models");
 const db = require("../models");
+const Sequelize = require('sequelize');
 const User = db.users;
 const Op = db.Sequelize.Op;
 
@@ -16,11 +18,11 @@ exports.create = (req, res) => {
     //comment for autodeploy
     const user = {
       userID: req.body.userID,
-      organizationID: req.body.organizationID,
       fName: req.body.fName,
       lName: req.body.lName,
       email: req.body.email,
       level: req.body.level
+    
    
     };
   
@@ -38,23 +40,63 @@ exports.create = (req, res) => {
   }
 
 // Retrieve all Users from the database.
+
 exports.findAll = (req, res) => {
-    const id = req.query.id;
-    console.log(id);
-  
-    User.findAll()
+  const id = req.params.id;
+
+  User.findAll()
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving Users."
+      });
+    });
+};
+
+exports.findAllTutors = (req, res) => {
+    const roleID = req.params.id;
+
+    var condition = roleID ? {
+      roleID: {
+        [Op.eq]: roleID
+      }
+    } : null;
+    User.findAll({
+      raw: true,
+      attributes: ['userID', 'fName', 'lName'], 
+      include: 
+        [ 
+          //  {model: userOrgs, as: 'userOrg', attributes: ['userID', 'orgID'], 
+          //    include: 
+          //     {model: orgs, as: 'org', attributes: ['orgID', [Sequelize.fn('GROUP_CONCAT', ' ' , Sequelize.col('name')), 'name']]}
+          //  },
+          {model: tutorSubjects, as: 'tutorSubject', attributes: ['tutorID', 'subjectID'], 
+            include: 
+              {model: subjects, as: 'subject', attributes: ['subjectID', [Sequelize.fn('GROUP_CONCAT', ' ' , Sequelize.col('name')), 'name']]}
+          }, 
+          {model: userRoles, as: 'userRoles', attributes: ['userID', 'roleID'], 
+            include: 
+              {model: roles, as: 'role', attributes: ['roleID']},
+            where: condition
+          }
+        ],
+        group: ['userID']
+        })
+
       .then(data => {
         res.send(data);
-      })
+       
+    })
       .catch(err => {
         res.status(500).send({
           message:
             err.message || "Some error occurred while retrieving Users."
         });
       });
-  };
-
-
+    };
 
 // Find a single User with an id
 exports.findOne = (req, res) => {

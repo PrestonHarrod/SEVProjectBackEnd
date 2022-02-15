@@ -1,5 +1,6 @@
 const db = require("../models");
-const TutorSubject = db.tutorSubjects;
+const tutorSubject = db.tutorSubjects;
+
 const Op = db.Sequelize.Op;
 
 // Create and Save a new org
