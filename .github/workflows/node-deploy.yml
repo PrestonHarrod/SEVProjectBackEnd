@@ -41,19 +41,3 @@ jobs:
                       sudo cp course-backend.service /lib/systemd/system/tutor-backend.service
                       sudo systemctl daemon-reload
                       sudo systemctl start tutor-backend
-
-    © 2022 GitHub, Inc.
-
-    Terms
-    Privacy
-    Security
-    Status
-    Docs
-    Contact GitHub
-    Pricing
-    API
-    Training
-    Blog
-    About
-
-Loading complete
