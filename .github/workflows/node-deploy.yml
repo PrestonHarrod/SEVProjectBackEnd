@@ -38,6 +38,6 @@ jobs:
                       cd nodeapp/tutor-backend
                       npm install
                       sudo systemctl stop tutor-backend
-                      sudo cp course-backend.service /lib/systemd/system/tutor-backend.service
+                      sudo cp tutor-backend.service /lib/systemd/system/tutor-backend.service
                       sudo systemctl daemon-reload
                       sudo systemctl start tutor-backend
