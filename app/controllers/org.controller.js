@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new org
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.id) {
+    if (!req.body.orgID) {
       res.status(400).send({
         message: "Content can not be empty!"
       });
