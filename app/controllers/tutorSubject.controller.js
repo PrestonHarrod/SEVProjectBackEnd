@@ -1,5 +1,5 @@
 const db = require("../models");
-const tutorSubject = db.tutorSubjects;
+const TutorSubject = db.tutorSubjects;
 
 const Op = db.Sequelize.Op;
 

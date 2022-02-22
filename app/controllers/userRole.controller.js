@@ -5,12 +5,12 @@ const Op = db.Sequelize.Op;
 // Create and Save a new org
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.id) {
-      res.status(400).send({
-        message: "Content can not be empty!"
-      });
-      return;
-    }
+    // if (!req.body.Userid) {
+    //   res.status(400).send({
+    //     message: "Content can not be empty!"
+    //   });
+    //   return;
+    // } //dont do this since it is autoincremented
   
     // Create a userRole
     //comment for autodeploy
@@ -38,7 +38,7 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
     const id = req.query.id;
   
-    UserRole.findAll()
+    UserRole.findAll({attributes: ['id', 'userID', 'roleID']})
       .then(data => {
         res.send(data);
       })

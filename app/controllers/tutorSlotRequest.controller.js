@@ -41,7 +41,7 @@ exports.create = (req, res) => {
 
 // Retrieve all TSRs from the database.
 exports.findAll = (req, res) => {
-    const id = req.query.id;
+    //const id = req.query.id;
   
     TutorSlotRequest.findAll()
       .then(data => {

@@ -6,23 +6,16 @@ const Op = db.Sequelize.Op;
 
 // Create and Save a new User
 exports.create = (req, res) => {
-    // Validate request
-    if (!req.body.userID) {
-      res.status(400).send({
-        message: "Content can not be empty!"
-      });
-      return;
-    }
+    
   
     // Create a User
     //comment for autodeploy
     const user = {
-      userID: req.body.userID,
+      // userID: req.body.userID, //auto 
       fName: req.body.fName,
       lName: req.body.lName,
       email: req.body.email,
-      level: req.body.level
-    
+      level: req.body.level,
    
     };
   
@@ -109,7 +102,7 @@ exports.findAllTutorSubjects = (req, res) => {
       } : null;
       User.findAll({
         raw: true,
-        attributes: ['userID', 'fName', 'lName'], 
+        attributes: ['userID', 'fName', 'lName', 'email'], 
         include: 
           [  
             {model: userRoles, as: 'userRoles', attributes: ['userID', 'roleID'], 

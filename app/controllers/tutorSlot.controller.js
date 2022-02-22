@@ -42,7 +42,7 @@ exports.create = (req, res) => {
 
 // Retrieve all tutorSlots from the database.
 exports.findAll = (req, res) => {
-    const id = req.query.id;
+    //const tutorSlotID = req.query.tutorSlotID;
   
     TutorSlot.findAll()
       .then(data => {
