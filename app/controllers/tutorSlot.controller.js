@@ -1,5 +1,5 @@
 const db = require("../models");
-const TutorSlot = db.tutorslots;
+const TutorSlot = db.tutorSlots;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new TutorSlot
@@ -55,6 +55,26 @@ exports.findAll = (req, res) => {
         });
       });
   };
+
+exports.getAllForTutor = (req, res) => {
+  const tutorID = req.params.id;
+  var condition = tutorID ? {
+    tutorID: {
+      [Op.like]: `%${tutorID}%`
+    }
+  } : null;
+  console.log(tutorID)
+
+  TutorSlot.findAll({where: condition})
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving TutorSlot with id=" + id
+      });
+    });
+}
 
 
 // Find a single TutorSlot with an id
