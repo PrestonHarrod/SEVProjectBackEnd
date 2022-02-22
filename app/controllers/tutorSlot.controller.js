@@ -78,7 +78,7 @@ exports.update = (req, res) => {
     const id = req.query.id;
   
     TutorSlot.update(req.body, {
-      where: { id: id }
+      where: { tutorSlotID: id }
     })
       .then(num => {
         if (num == 1) {
@@ -103,7 +103,7 @@ exports.delete = (req, res) => {
     const id = req.query.id;
   
     TutorSlot.destroy({
-      where: { id: id }
+      where: { tutorSlotID: id }
     })
       .then(num => {
         if (num == 1) {

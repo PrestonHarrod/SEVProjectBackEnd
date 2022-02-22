@@ -79,7 +79,7 @@ exports.update = (req, res) => {
     const id = req.query.id;
   
     Session.update(req.body, {
-      where: { id: id }
+      where: { sessionID: id }
     })
       .then(num => {
         if (num == 1) {
@@ -104,7 +104,7 @@ exports.delete = (req, res) => {
     const id = req.query.id;
   
     Session.destroy({
-      where: { id: id }
+      where: { sessionID: id }
     })
       .then(num => {
         if (num == 1) {

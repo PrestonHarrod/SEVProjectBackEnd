@@ -149,7 +149,7 @@ exports.update = (req, res) => {
     const id = req.query.id;
   
     User.update(req.body, {
-      where: { id: id }
+      where: { userID: id }
     })
       .then(num => {
         if (num == 1) {
@@ -171,10 +171,10 @@ exports.update = (req, res) => {
 
 // Delete a User with the specified id in the request
 exports.delete = (req, res) => {
-    const id = req.query.id;
+    const id = req.params.id;
   
     User.destroy({
-      where: { id: id }
+      where: { userID: id }
     })
       .then(num => {
         if (num == 1) {
@@ -183,7 +183,7 @@ exports.delete = (req, res) => {
           });
         } else {
           res.send({
-            message: `Cannot delete User with id=${userID}. Maybe User was not found!`
+            message: `Cannot delete User with id=${id}. Maybe User was not found!`
           });
         }
       })

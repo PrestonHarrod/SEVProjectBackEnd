@@ -74,7 +74,7 @@ exports.update = (req, res) => {
     const id = req.query.id;
   
     Request.update(req.body, {
-      where: { id: id }
+      where: { requestID: id }
     })
       .then(num => {
         if (num == 1) {
@@ -99,7 +99,7 @@ exports.delete = (req, res) => {
     const id = req.query.id;
   
     Request.destroy({
-      where: { id: id }
+      where: { requestID: id }
     })
       .then(num => {
         if (num == 1) {

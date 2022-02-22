@@ -70,7 +70,7 @@ exports.update = (req, res) => {
     const id = req.query.id;
   
     Role.update(req.body, {
-      where: { id: id }
+      where: { roleID: id }
     })
       .then(num => {
         if (num == 1) {
@@ -95,7 +95,7 @@ exports.delete = (req, res) => {
     const id = req.query.id;
   
     Role.destroy({
-      where: { id: id }
+      where: { roleID: id }
     })
       .then(num => {
         if (num == 1) {

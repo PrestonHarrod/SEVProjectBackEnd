@@ -70,7 +70,7 @@ exports.update = (req, res) => {
     const id = req.query.id;
   
     Org.update(req.body, {
-      where: { id: id }
+      where: { orgID: id }
     })
       .then(num => {
         if (num == 1) {
@@ -95,7 +95,7 @@ exports.delete = (req, res) => {
     const id = req.query.id;
   
     Org.destroy({
-      where: { id: id }
+      where: { orgID: id }
     })
       .then(num => {
         if (num == 1) {
