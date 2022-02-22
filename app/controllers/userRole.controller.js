@@ -38,7 +38,7 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
     const id = req.query.id;
   
-    UserRole.findAll()
+    UserRole.findAll({attributes: ['id', 'userID', 'roleID']})
       .then(data => {
         res.send(data);
       })

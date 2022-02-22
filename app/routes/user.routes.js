@@ -22,8 +22,7 @@ module.exports = app => {
   // Delete all user
   router.delete("/", users.deleteAll);
 
-  router.get("/roleID/:id", users.findAllTutors);
-  // router.get("/tutor/subjects/", users.findAllTutorsSubjects);
+  router.get("/tutors/:roleID:orgID", users.findAllTutors);  // router.get("/tutor/subjects/", users.findAllTutorsSubjects);
 
 
   app.use('/api/users', router);

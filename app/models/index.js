@@ -168,16 +168,16 @@ db.users.hasMany(db.sessions, {
 
 //------------Tutorslot
 
-// db.tutorSlots.belongsTo(db.users, {
-//   foreignKey: 'tutorID'
-// });
-// db.tutorSlots.belongsTo(db.users, {
-//   foreignKey: 'studentID'
-// });
+db.tutorSlots.belongsTo(db.users, {
+  foreignKey: 'tutorID'
+});
+db.tutorSlots.belongsTo(db.users, {
+  foreignKey: 'studentID'
+});
 
-// db.users.hasMany(db.tutorSlots, {
-//   as: 'tutorSlots', foreignKey: "userID"
-// });
+db.users.hasMany(db.tutorSlots, {
+  as: 'tutorSlots', foreignKey: "userID"
+});
 
 //----------Request
 db.requests.belongsTo(db.users, {

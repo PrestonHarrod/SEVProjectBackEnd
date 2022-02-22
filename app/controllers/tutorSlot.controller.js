@@ -1,5 +1,5 @@
 const db = require("../models");
-const TutorSlot = db.tutorslots;
+const TutorSlot = db.tutorSlots;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new TutorSlot
@@ -16,7 +16,7 @@ exports.create = (req, res) => {
     //comment for autodeploy
     const tutorSlot = {
         tutorSlotID: req.body.tutorSlotID,
-          tutorID: req.body.tutorSlotID,
+          tutorID: req.body.tutorID,
           studentID: req.body.studentID,
           day: req.body.day,
           startTime:req.body.startTime,
@@ -43,7 +43,6 @@ exports.create = (req, res) => {
 // Retrieve all tutorSlots from the database.
 exports.findAll = (req, res) => {
     const id = req.query.id;
-  
     TutorSlot.findAll()
       .then(data => {
         res.send(data);

@@ -21,6 +21,8 @@ module.exports = app => {
   
     // Delete all user
     router.delete("/", userOrgs.deleteAll);
+
+    router.get("/student/:id", userOrgs.findStudentsOrgID);
   
     app.use('/api/userOrgs', router);
   };
