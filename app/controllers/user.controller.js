@@ -6,23 +6,16 @@ const Op = db.Sequelize.Op;
 
 // Create and Save a new User
 exports.create = (req, res) => {
-    // Validate request
-    if (!req.body.id) {
-      res.status(400).send({
-        message: "Content can not be empty!"
-      });
-      return;
-    }
+    
   
     // Create a User
     //comment for autodeploy
     const user = {
-      userID: req.body.userID,
+      // userID: req.body.userID, //auto 
       fName: req.body.fName,
       lName: req.body.lName,
       email: req.body.email,
-      level: req.body.level
-    
+      level: req.body.level,
    
     };
   
@@ -56,7 +49,7 @@ exports.findAll = (req, res) => {
     });
 };
 
-exports.findAllTutors = (req, res) => {
+exports.findAllTutorSubjects = (req, res) => {
     const roleID = req.params.id;
 
     var condition = roleID ? {
@@ -98,6 +91,42 @@ exports.findAllTutors = (req, res) => {
       });
     };
 
+
+    exports.findAllByRole = (req, res) => {
+      const roleID = req.params.id;
+  
+      var condition = roleID ? {
+        roleID: {
+          [Op.eq]: roleID
+        }
+      } : null;
+      User.findAll({
+        raw: true,
+        attributes: ['userID', 'fName', 'lName', 'email'], 
+        include: 
+          [  
+            {model: userRoles, as: 'userRoles', attributes: ['userID', 'roleID'], 
+              include: 
+                {model: roles, as: 'role', attributes: ['roleID']},
+              where: condition
+            }
+          ],
+          group: ['userID']
+          })
+  
+        .then(data => {
+          res.send(data);
+         
+      })
+        .catch(err => {
+          res.status(500).send({
+            message:
+              err.message || "Some error occurred while retrieving all tutors."
+          });
+        });
+      };
+  
+
 // Find a single User with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
@@ -117,10 +146,10 @@ exports.findOne = (req, res) => {
 
 // Update a User by the id in the request
 exports.update = (req, res) => {
-    const id = req.query.id;
+    const id = req.params.id;
   
     User.update(req.body, {
-      where: { id: id }
+      where: { userID: id }
     })
       .then(num => {
         if (num == 1) {
@@ -142,10 +171,10 @@ exports.update = (req, res) => {
 
 // Delete a User with the specified id in the request
 exports.delete = (req, res) => {
-    const id = req.query.id;
+    const id = req.params.id;
   
     User.destroy({
-      where: { id: id }
+      where: { userID: id }
     })
       .then(num => {
         if (num == 1) {
@@ -154,7 +183,7 @@ exports.delete = (req, res) => {
           });
         } else {
           res.send({
-            message: `Cannot delete User with id=${userID}. Maybe User was not found!`
+            message: `Cannot delete User with id=${id}. Maybe User was not found!`
           });
         }
       })

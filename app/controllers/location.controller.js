@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Location
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.id) {
+    if (!req.body.locationID) {
       res.status(400).send({
         message: "Content can not be empty!"
       });
@@ -54,7 +54,7 @@ exports.findAll = (req, res) => {
 
 // Find a single Location with an id
 exports.findOne = (req, res) => {
-    const id = req.params.id;
+  const id = req.params.id;
 
   Location.findByPk(id)
     .then(data => {
@@ -70,10 +70,10 @@ exports.findOne = (req, res) => {
 
 // Update a Location by the id in the request
 exports.update = (req, res) => {
-    const id = req.query.id;
+  const id = req.params.id;
   
     Location.update(req.body, {
-      where: { id: id }
+      where: { locationID: id }
     })
       .then(num => {
         if (num == 1) {
@@ -95,10 +95,10 @@ exports.update = (req, res) => {
 
 // Delete a Location with the specified id in the request
 exports.delete = (req, res) => {
-    const id = req.query.id;
+  const id = req.params.id;
   
     Location.destroy({
-      where: { id: id }
+      where: { locationID: id }
     })
       .then(num => {
         if (num == 1) {

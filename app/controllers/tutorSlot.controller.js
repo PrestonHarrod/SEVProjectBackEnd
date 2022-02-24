@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new TutorSlot
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.id) {
+    if (!req.body.tutorSlotID) {
       res.status(400).send({
         message: "Content can not be empty!"
       });
@@ -42,7 +42,7 @@ exports.create = (req, res) => {
 
 // Retrieve all tutorSlots from the database.
 exports.findAll = (req, res) => {
-    const id = req.query.id;
+    //const tutorSlotID = req.query.tutorSlotID;
   
     TutorSlot.findAll()
       .then(data => {
@@ -95,10 +95,10 @@ exports.findOne = (req, res) => {
 
 // Update a TutorSlot by the id in the request
 exports.update = (req, res) => {
-    const id = req.query.id;
+  const id = req.params.id;
   
     TutorSlot.update(req.body, {
-      where: { id: id }
+      where: { tutorSlotID: id }
     })
       .then(num => {
         if (num == 1) {
@@ -120,10 +120,10 @@ exports.update = (req, res) => {
 
 // Delete a tutorSlot with the specified id in the request
 exports.delete = (req, res) => {
-    const id = req.query.id;
+  const id = req.params.id;
   
     TutorSlot.destroy({
-      where: { id: id }
+      where: { tutorSlotID: id }
     })
       .then(num => {
         if (num == 1) {
