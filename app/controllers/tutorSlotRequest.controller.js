@@ -58,7 +58,7 @@ exports.findAll = (req, res) => {
 
 // Find a single TSR with an id
 exports.findOne = (req, res) => {
-    const id = req.query.id;
+  const id = req.params.id;
 
   TutorSlotRequest.findByPk(id)
     .then(data => {
@@ -74,7 +74,7 @@ exports.findOne = (req, res) => {
 
 // Update a TSR by the id in the tsr
 exports.update = (req, res) => {
-    const id = req.query.id;
+  const id = req.params.id;
   
     TutorSlotRequest.update(req.body, {
       where: { tutorSlotRequestID: id }
@@ -99,7 +99,7 @@ exports.update = (req, res) => {
 
 // Delete a TSR with the specified id in the TSR
 exports.delete = (req, res) => {
-    const id = req.query.id;
+  const id = req.params.id;
   
     TutorSlotRequest.destroy({
       where: { tutorSlotRequestID: id }

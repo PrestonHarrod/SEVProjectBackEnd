@@ -53,7 +53,7 @@ exports.findAll = (req, res) => {
 
 // Find a single userRole with an id
 exports.findOne = (req, res) => {
-    const id = req.params.id;
+  const id = req.params.id;
 
   UserRole.findByPk(id)
     .then(data => {
@@ -69,7 +69,7 @@ exports.findOne = (req, res) => {
 
 // Update a UserRole by the id in the request
 exports.update = (req, res) => {
-    const id = req.query.id;
+  const id = req.params.id;
   
     UserRole.update(req.body, {
       where: { id: id }
@@ -94,7 +94,7 @@ exports.update = (req, res) => {
 
 // Delete a Type with the specified id in the request
 exports.delete = (req, res) => {
-    const id = req.query.id;
+  const id = req.params.id;
   
     UserRole.destroy({
       where: { id: id }

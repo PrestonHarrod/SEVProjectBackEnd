@@ -75,7 +75,7 @@ exports.findOne = (req, res) => {
 
 // Update a TutorSlot by the id in the request
 exports.update = (req, res) => {
-    const id = req.query.id;
+  const id = req.params.id;
   
     TutorSlot.update(req.body, {
       where: { tutorSlotID: id }
@@ -100,7 +100,7 @@ exports.update = (req, res) => {
 
 // Delete a tutorSlot with the specified id in the request
 exports.delete = (req, res) => {
-    const id = req.query.id;
+  const id = req.params.id;
   
     TutorSlot.destroy({
       where: { tutorSlotID: id }

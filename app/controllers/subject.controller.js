@@ -70,7 +70,7 @@ exports.findOne = (req, res) => {
 
 // Update a Subject by the id in the request
 exports.update = (req, res) => {
-    const id = req.query.id;
+  const id = req.params.id;
   
     Subject.update(req.body, {
       where: { subjectID: id }
@@ -95,7 +95,7 @@ exports.update = (req, res) => {
 
 // Delete a Subject with the specified id in the request
 exports.delete = (req, res) => {
-    const id = req.query.id;
+  const id = req.params.id;
   
     Subject.destroy({
       where: { subjectID: id }

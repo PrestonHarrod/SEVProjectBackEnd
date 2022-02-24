@@ -51,7 +51,7 @@ exports.findAll = (req, res) => {
 
 // Find a single Org with an id
 exports.findOne = (req, res) => {
-    const id = req.params.id;
+  const id = req.params.id;
 
   Org.findByPk(id)
     .then(data => {
@@ -67,7 +67,7 @@ exports.findOne = (req, res) => {
 
 // Update a Org by the id in the request
 exports.update = (req, res) => {
-    const id = req.query.id;
+  const id = req.params.id;
   
     Org.update(req.body, {
       where: { orgID: id }
@@ -92,7 +92,7 @@ exports.update = (req, res) => {
 
 // Delete a Type with the specified id in the request
 exports.delete = (req, res) => {
-    const id = req.query.id;
+  const id = req.params.id;
   
     Org.destroy({
       where: { orgID: id }

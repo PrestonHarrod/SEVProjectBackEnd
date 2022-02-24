@@ -76,7 +76,7 @@ exports.findOne = (req, res) => {
 
 // Update a Session by the id in the request
 exports.update = (req, res) => {
-    const id = req.query.id;
+  const id = req.params.id;
   
     Session.update(req.body, {
       where: { sessionID: id }
@@ -101,7 +101,7 @@ exports.update = (req, res) => {
 
 // Delete a Session with the specified id in the request
 exports.delete = (req, res) => {
-    const id = req.query.id;
+  const id = req.params.id;
   
     Session.destroy({
       where: { sessionID: id }
