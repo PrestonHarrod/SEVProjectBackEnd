@@ -49,23 +49,34 @@ exports.findAll = (req, res) => {
     });
 };
 
-exports.findAllTutorSubjects = (req, res) => {
-    const roleID = req.params.id;
+
+exports.findAllTutors = (req, res) => {
+  const roleID = req.params.roleID;
+  const orgID = req.params.orgID;
+
 
     var condition = roleID ? {
       roleID: {
         [Op.eq]: roleID
       }
     } : null;
+
+    var condition2 = orgID ? {
+      orgID: {
+        [Op.eq]: orgID
+      }
+    } : null;
+
     User.findAll({
       raw: true,
       attributes: ['userID', 'fName', 'lName'], 
       include: 
         [ 
-          //  {model: userOrgs, as: 'userOrg', attributes: ['userID', 'orgID'], 
-          //    include: 
-          //     {model: orgs, as: 'org', attributes: ['orgID', [Sequelize.fn('GROUP_CONCAT', ' ' , Sequelize.col('name')), 'name']]}
-          //  },
+          {model: userOrgs, as: 'userOrg', attributes: ['userID', 'orgID'], 
+            //  include: 
+            //   {model: orgs, as: 'org', attributes: ['orgID', [Sequelize.fn('GROUP_CONCAT', ' ' , Sequelize.col('name')), 'orgName']]},
+              where: condition2
+            },
           {model: tutorSubjects, as: 'tutorSubject', attributes: ['tutorID', 'subjectID'], 
             include: 
               {model: subjects, as: 'subject', attributes: ['subjectID', [Sequelize.fn('GROUP_CONCAT', ' ' , Sequelize.col('name')), 'name']]}
