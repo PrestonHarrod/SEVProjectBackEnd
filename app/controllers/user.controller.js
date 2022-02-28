@@ -16,6 +16,7 @@ exports.create = (req, res) => {
       lName: req.body.lName,
       email: req.body.email,
       level: req.body.level,
+      phoneNumber: req.body.phoneNumber
    
     };
   
@@ -113,7 +114,7 @@ exports.findAllTutors = (req, res) => {
       } : null;
       User.findAll({
         raw: true,
-        attributes: ['userID', 'fName', 'lName', 'email'], 
+        attributes: ['userID', 'fName', 'lName', 'email', 'phoneNumber'], 
         include: 
           [  
             {model: userRoles, as: 'userRoles', attributes: ['userID', 'roleID'], 
