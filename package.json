@@ -23,6 +23,7 @@
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
     "sequelize": "^6.13.0",
-    "google-auth-library": "^7.10.1"
+    "google-auth-library": "^7.10.1",
+    "mariadb": "^2.5.4"
   }
 }
