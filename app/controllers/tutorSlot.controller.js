@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new TutorSlot
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.id) {
+    if (!req.body.tutorSlotID) {
       res.status(400).send({
         message: "Content can not be empty!"
       });
@@ -42,7 +42,9 @@ exports.create = (req, res) => {
 
 // Retrieve all tutorSlots from the database.
 exports.findAll = (req, res) => {
+
     const id = req.query.id;
+
     TutorSlot.findAll()
       .then(data => {
         res.send(data);
@@ -54,6 +56,26 @@ exports.findAll = (req, res) => {
         });
       });
   };
+
+exports.getAllForTutor = (req, res) => {
+  const tutorID = req.params.id;
+  var condition = tutorID ? {
+    tutorID: {
+      [Op.like]: `%${tutorID}%`
+    }
+  } : null;
+  console.log(tutorID)
+
+  TutorSlot.findAll({where: condition})
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving TutorSlot with id=" + id
+      });
+    });
+}
 
 
 // Find a single TutorSlot with an id
@@ -74,10 +96,10 @@ exports.findOne = (req, res) => {
 
 // Update a TutorSlot by the id in the request
 exports.update = (req, res) => {
-    const id = req.query.id;
+  const id = req.params.id;
   
     TutorSlot.update(req.body, {
-      where: { id: id }
+      where: { tutorSlotID: id }
     })
       .then(num => {
         if (num == 1) {
@@ -99,10 +121,10 @@ exports.update = (req, res) => {
 
 // Delete a tutorSlot with the specified id in the request
 exports.delete = (req, res) => {
-    const id = req.query.id;
+  const id = req.params.id;
   
     TutorSlot.destroy({
-      where: { id: id }
+      where: { tutorSlotID: id }
     })
       .then(num => {
         if (num == 1) {

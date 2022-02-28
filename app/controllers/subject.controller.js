@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Subject
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.id) {
+    if (!req.body.subjectID) {
       res.status(400).send({
         message: "Content can not be empty!"
       });
@@ -70,10 +70,10 @@ exports.findOne = (req, res) => {
 
 // Update a Subject by the id in the request
 exports.update = (req, res) => {
-    const id = req.query.id;
+  const id = req.params.id;
   
     Subject.update(req.body, {
-      where: { id: id }
+      where: { subjectID: id }
     })
       .then(num => {
         if (num == 1) {
@@ -95,10 +95,10 @@ exports.update = (req, res) => {
 
 // Delete a Subject with the specified id in the request
 exports.delete = (req, res) => {
-    const id = req.query.id;
+  const id = req.params.id;
   
     Subject.destroy({
-      where: { id: id }
+      where: { subjectID: id }
     })
       .then(num => {
         if (num == 1) {

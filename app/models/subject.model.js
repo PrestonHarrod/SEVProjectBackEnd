@@ -14,6 +14,9 @@ module.exports = (sequelize, Sequelize) => {
       level: {
         type: DataTypes.INTEGER
       },
+      subjectGenre: {
+        type: DataTypes.STRING
+      },
       name:{
         type: DataTypes.STRING
       },
