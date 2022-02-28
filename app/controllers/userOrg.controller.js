@@ -4,18 +4,12 @@ const Op = db.Sequelize.Op;
 
 // Create and Save a new org
 exports.create = (req, res) => {
-    // Validate request
-    if (!req.body.id) {
-      res.status(400).send({
-        message: "Content can not be empty!"
-      });
-      return;
-    }
+    
   
     // Create a userOrgs
     //comment for autodeploy
     const userOrg = {
-      id: req.body.id,
+      // id: req.body.id,
       userID: req.body.userID,
       orgID: req.body.orgID,
       
