@@ -24,5 +24,5 @@ module.exports = app => {
 
     router.get("/tutorSlotForTutor/:id",tutorSlots.getAllForTutor)
   
-    app.use('/api/tutorSlots', router);
+ +   app.use('/api/tutorSlots', router);
   };
