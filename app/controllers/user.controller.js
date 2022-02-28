@@ -16,6 +16,7 @@ exports.create = (req, res) => {
       lName: req.body.lName,
       email: req.body.email,
       level: req.body.level,
+      phoneNumber: req.body.phoneNumber
    
     };
   

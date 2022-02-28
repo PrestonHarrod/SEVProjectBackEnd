@@ -23,6 +23,9 @@ module.exports = (sequelize, Sequelize) => {
       level:{
         type: DataTypes.STRING
       },
+      phoneNumber:{
+        type: DataTypes.STRING
+      },
     },
       {
         tableName: 'users'
