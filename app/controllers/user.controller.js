@@ -103,7 +103,7 @@ exports.findAllTutorSubjects = (req, res) => {
       } : null;
       User.findAll({
         raw: true,
-        attributes: ['userID', 'fName', 'lName', 'email'], 
+        attributes: ['userID', 'fName', 'lName', 'email', 'phoneNumber'], 
         include: 
           [  
             {model: userRoles, as: 'userRoles', attributes: ['userID', 'roleID'], 
