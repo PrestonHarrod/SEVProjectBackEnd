@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Session
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.sessionID) {
+    if (!req.body.studentID) {
       res.status(400).send({
         message: "Content can not be empty!"
       });
