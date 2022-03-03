@@ -4,18 +4,12 @@ const Op = db.Sequelize.Op;
 
 // Create and Save a new org
 exports.create = (req, res) => {
-    // Validate request
-    if (!req.body.id) {
-      res.status(400).send({
-        message: "Content can not be empty!"
-      });
-      return;
-    }
+    
   
     // Create a userOrgs
     //comment for autodeploy
     const userOrg = {
-      id: req.body.id,
+      // id: req.body.id,
       userID: req.body.userID,
       orgID: req.body.orgID,
       
@@ -50,7 +44,24 @@ exports.findAll = (req, res) => {
       });
   };
 
-
+exports.findStudentsOrgID = (req, res) => {
+  const userID = req.params.id;
+  var condition = userID ? {
+    userID: {
+      [Op.eq]: userID
+    }
+  } : null;
+  UserOrg.findAll({where: condition})
+  .then(data => {
+    res.send(data);
+  })
+  .catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while retrieving Types."
+    });
+  });
+}
 // Find a single userOrg with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
@@ -69,7 +80,7 @@ exports.findOne = (req, res) => {
 
 // Update a UserOrg by the id in the request
 exports.update = (req, res) => {
-    const id = req.query.id;
+  const id = req.params.id;
   
     UserOrg.update(req.body, {
       where: { id: id }
@@ -94,7 +105,7 @@ exports.update = (req, res) => {
 
 // Delete a Type with the specified id in the request
 exports.delete = (req, res) => {
-    const id = req.query.id;
+  const id = req.params.id;
   
     UserOrg.destroy({
       where: { id: id }

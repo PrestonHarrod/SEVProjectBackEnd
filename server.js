@@ -42,6 +42,7 @@ require("./app/routes/loginToken.routes")(app);
 require("./app/routes/location.routes")(app);
 require("./app/routes/userOrg.routes")(app);
 require("./app/routes/auth.routes")(app);
+require("./app/routes/tutorSlotRequest.routes")(app);
 
 
 

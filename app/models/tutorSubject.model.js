@@ -2,7 +2,7 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize, Sequelize) => {
-    const tutorSubject = sequelize.define("tutorSubject", {
+    const TutorSubject = sequelize.define("tutorSubject", {
     id:{
         type: DataTypes.INTEGER,
         primaryKey: true, 
@@ -24,5 +24,5 @@ module.exports = (sequelize, Sequelize) => {
 
     });
 
-    return tutorSubject;
+    return TutorSubject;
   };

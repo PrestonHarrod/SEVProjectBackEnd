@@ -5,12 +5,12 @@ const Op = db.Sequelize.Op;
 // Create and Save a new org
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.id) {
-      res.status(400).send({
-        message: "Content can not be empty!"
-      });
-      return;
-    }
+    // if (!req.body.Userid) {
+    //   res.status(400).send({
+    //     message: "Content can not be empty!"
+    //   });
+    //   return;
+    // } //dont do this since it is autoincremented
   
     // Create a userRole
     //comment for autodeploy
@@ -38,7 +38,7 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
     const id = req.query.id;
   
-    UserRole.findAll()
+    UserRole.findAll({attributes: ['id', 'userID', 'roleID']})
       .then(data => {
         res.send(data);
       })
@@ -50,10 +50,27 @@ exports.findAll = (req, res) => {
       });
   };
 
+  exports.findAllRoles = (req, res) => {
+    const id = req.query.id;
+  
+    UserRole.findAll({attributes: ['roleID']},{where: { userID: id }} )
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving all roles from an ID."
+        });
+      });
+  };
+
+  
+
 
 // Find a single userRole with an id
 exports.findOne = (req, res) => {
-    const id = req.params.id;
+  const id = req.params.id;
 
   UserRole.findByPk(id)
     .then(data => {
@@ -69,7 +86,7 @@ exports.findOne = (req, res) => {
 
 // Update a UserRole by the id in the request
 exports.update = (req, res) => {
-    const id = req.query.id;
+  const id = req.params.id;
   
     UserRole.update(req.body, {
       where: { id: id }
@@ -94,7 +111,7 @@ exports.update = (req, res) => {
 
 // Delete a Type with the specified id in the request
 exports.delete = (req, res) => {
-    const id = req.query.id;
+  const id = req.params.id;
   
     UserRole.destroy({
       where: { id: id }

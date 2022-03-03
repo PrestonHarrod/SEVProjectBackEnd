@@ -21,6 +21,8 @@ module.exports = app => {
   
     // Delete all user
     router.delete("/", tutorSlots.deleteAll);
+
+    router.get("/tutorSlotForTutor/:id",tutorSlots.getAllForTutor)
   
-    app.use('/api/tutorSlots', router);
+ +   app.use('/api/tutorSlots', router);
   };

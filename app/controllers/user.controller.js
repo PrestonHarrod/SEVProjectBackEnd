@@ -1,26 +1,22 @@
+const { userRoles, roles, tutorSubjects, subjects, orgs, userOrgs } = require("../models");
 const db = require("../models");
+const Sequelize = require('sequelize');
 const User = db.users;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new User
 exports.create = (req, res) => {
-    // Validate request
-    if (!req.body.id) {
-      res.status(400).send({
-        message: "Content can not be empty!"
-      });
-      return;
-    }
+    
   
     // Create a User
     //comment for autodeploy
     const user = {
-      userID: req.body.userID,
-      organizationID: req.body.organizationID,
+      // userID: req.body.userID, //auto 
       fName: req.body.fName,
       lName: req.body.lName,
       email: req.body.email,
-      level: req.body.level
+      level: req.body.level,
+      phoneNumber: req.body.phoneNumber
    
     };
   
@@ -38,23 +34,110 @@ exports.create = (req, res) => {
   }
 
 // Retrieve all Users from the database.
+
 exports.findAll = (req, res) => {
-    const id = req.query.id;
-    console.log(id);
-  
-    User.findAll()
+  const id = req.params.id;
+
+  User.findAll()
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving Users."
+      });
+    });
+};
+
+
+exports.findAllTutors = (req, res) => {
+  const roleID = req.params.roleID;
+  const orgID = req.params.orgID;
+
+
+    var condition = roleID ? {
+      roleID: {
+        [Op.eq]: roleID
+      }
+    } : null;
+
+    var condition2 = orgID ? {
+      orgID: {
+        [Op.eq]: orgID
+      }
+    } : null;
+
+    User.findAll({
+      raw: true,
+      attributes: ['userID', 'fName', 'lName'], 
+      include: 
+        [ 
+          {model: userOrgs, as: 'userOrg', attributes: ['userID', 'orgID'], 
+            //  include: 
+            //   {model: orgs, as: 'org', attributes: ['orgID', [Sequelize.fn('GROUP_CONCAT', ' ' , Sequelize.col('name')), 'orgName']]},
+              where: condition2
+            },
+          {model: tutorSubjects, as: 'tutorSubject', attributes: ['tutorID', 'subjectID'], 
+            include: 
+              {model: subjects, as: 'subject', attributes: ['subjectID', [Sequelize.fn('GROUP_CONCAT', ' ' , Sequelize.col('name')), 'name']]}
+          }, 
+          {model: userRoles, as: 'userRoles', attributes: ['userID', 'roleID'], 
+            include: 
+              {model: roles, as: 'role', attributes: ['roleID']},
+            where: condition
+          }
+        ],
+        group: ['userID']
+        })
+
       .then(data => {
         res.send(data);
-      })
+       
+    })
       .catch(err => {
         res.status(500).send({
           message:
             err.message || "Some error occurred while retrieving Users."
         });
       });
-  };
+    };
 
 
+    exports.findAllByRole = (req, res) => {
+      const roleID = req.params.id;
+  
+      var condition = roleID ? {
+        roleID: {
+          [Op.eq]: roleID
+        }
+      } : null;
+      User.findAll({
+        raw: true,
+        attributes: ['userID', 'fName', 'lName', 'email', 'phoneNumber'], 
+        include: 
+          [  
+            {model: userRoles, as: 'userRoles', attributes: ['userID', 'roleID'], 
+              include: 
+                {model: roles, as: 'role', attributes: ['roleID']},
+              where: condition
+            }
+          ],
+          group: ['userID']
+          })
+  
+        .then(data => {
+          res.send(data);
+         
+      })
+        .catch(err => {
+          res.status(500).send({
+            message:
+              err.message || "Some error occurred while retrieving all tutors."
+          });
+        });
+      };
+  
 
 // Find a single User with an id
 exports.findOne = (req, res) => {
@@ -75,10 +158,10 @@ exports.findOne = (req, res) => {
 
 // Update a User by the id in the request
 exports.update = (req, res) => {
-    const id = req.query.id;
+    const id = req.params.id;
   
     User.update(req.body, {
-      where: { id: id }
+      where: { userID: id }
     })
       .then(num => {
         if (num == 1) {
@@ -100,10 +183,10 @@ exports.update = (req, res) => {
 
 // Delete a User with the specified id in the request
 exports.delete = (req, res) => {
-    const id = req.query.id;
+    const id = req.params.id;
   
     User.destroy({
-      where: { id: id }
+      where: { userID: id }
     })
       .then(num => {
         if (num == 1) {
@@ -112,7 +195,7 @@ exports.delete = (req, res) => {
           });
         } else {
           res.send({
-            message: `Cannot delete User with id=${userID}. Maybe User was not found!`
+            message: `Cannot delete User with id=${id}. Maybe User was not found!`
           });
         }
       })
