@@ -50,6 +50,23 @@ exports.findAll = (req, res) => {
       });
   };
 
+  exports.findAllRoles = (req, res) => {
+    const id = req.query.id;
+  
+    UserRole.findAll({attributes: ['roleID']},{where: { userID: id }} )
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving all roles from an ID."
+        });
+      });
+  };
+
+  
+
 
 // Find a single userRole with an id
 exports.findOne = (req, res) => {
