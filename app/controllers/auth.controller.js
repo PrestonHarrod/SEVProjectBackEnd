@@ -34,12 +34,10 @@ exports.login = async (req, res) => {
   let userID = null;
   let token = null;
 
-  var condition = roleID ? {
-    roleID: {
-      [Op.eq]: roleID
-    }
-  } : null;
 
+  
+
+  // nested query vs 
   // Look for an advior in the database
   let userFound = false;
   await User.findOne({ 
