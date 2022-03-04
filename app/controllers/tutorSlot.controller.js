@@ -93,14 +93,39 @@ exports.findOne = (req, res) => {
     });
 };
 
+exports.findOneForStudent = (req, res) => {
+  const tutorSlotID = req.params.id;
+  var condition = tutorSlotID ? {
+    tutorSlotID: {
+      [Op.eq]: tutorSlotID
+    }
+  } : null;
+
+TutorSlot.findAll({
+  raw: true,
+  attributes: ['studentID', 'tutorSlotID'], where: condition})
+  .then(data => {
+    res.send(data);
+  })
+  .catch(err => {
+    res.status(500).send({
+      message: "Error retrieving TutorSlot with id=" + id
+    });
+  });
+};
+
 
 // Update a TutorSlot by the id in the request
 exports.update = (req, res) => {
   const id = req.params.id;
+  const tutorSlotID = id;
+  console.log("getting here");
+
   
     TutorSlot.update(req.body, {
       where: { tutorSlotID: id }
     })
+    
       .then(num => {
         if (num == 1) {
           res.send({
@@ -108,7 +133,7 @@ exports.update = (req, res) => {
           });
         } else {
           res.send({
-            message: `Cannot update TutorSLot with id=${tutorSlotID}. Maybe User was not found or req.body is empty!`
+            message: req.body + `Cannot update TutorSLot with id=${tutorSlotID}. Maybe User was not found or req.body is empty!`
           });
         }
       })
