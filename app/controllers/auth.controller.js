@@ -3,6 +3,7 @@ const LoginToken = db.loginTokens;
 const User = db.users;
 const Op = db.Sequelize.Op;
 const authconfig = require('../config/auth.config.js');
+const UserRoles = db.userRoles;
 
 var jwt = require("jsonwebtoken");
 const { user } = require("../models");
@@ -36,6 +37,8 @@ exports.login = async (req, res) => {
 
   // Look for an advior in the database
   let userFound = false;
+  let roles = [];
+ 
   await User.findOne({ where : {email:email}})
     .then(data => {
         if (data != null) {
@@ -45,6 +48,7 @@ exports.login = async (req, res) => {
         userID = user.userID
         fName = user.fName;
         userFound = true;
+        
 
         }
     }).catch(err => {
@@ -53,12 +57,18 @@ exports.login = async (req, res) => {
         });
         return;
     });
+    await UserRoles.findAllRoles(this.user.userID)
+    .then(response => {
+      this.user.roles = response.data;
+    })
     if (!userFound) {
       res.status(401).send({
         message: "User Not Found"
       });
       return;
     }
+
+
   let tokenExpireDate =new Date();
   tokenExpireDate.setDate(tokenExpireDate.getDate() + 1);
   const login = {
