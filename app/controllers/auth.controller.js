@@ -34,9 +34,26 @@ exports.login = async (req, res) => {
   let userID = null;
   let token = null;
 
+  var condition = roleID ? {
+    roleID: {
+      [Op.eq]: roleID
+    }
+  } : null;
+
   // Look for an advior in the database
   let userFound = false;
-  await User.findOne({ where : {email:email}})
+  await User.findOne({ 
+    where : {email:email},
+    include : [
+      {model: userRoles, as: 'userRoles', attributes: ['userID', 'roleID'], 
+      include: 
+        {model: roles, as: 'role', attributes: ['roleID']},
+      where: condition
+    }
+    ],
+    group: ['userID']
+  
+  })
     .then(data => {
         if (data != null) {
         let user = data.dataValues;

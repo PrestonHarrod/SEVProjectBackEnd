@@ -51,9 +51,14 @@ exports.findAll = (req, res) => {
   };
 
   exports.findAllRoles = (req, res) => {
-    const id = req.query.id;
+    const id = req.params.id;
+    console.log(id);
   
-    UserRole.findAll({attributes: ['roleID']},{where: { userID: id }} )
+    UserRole.findAll({
+      raw: true,
+      where: { userID: id },
+      attributes: ['roleID']
+    }) //how do i do multiple?
       .then(data => {
         res.send(data);
       })
