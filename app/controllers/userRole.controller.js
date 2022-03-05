@@ -36,9 +36,12 @@ exports.create = (req, res) => {
 
 // Retrieve all userRoles from the database.
 exports.findAll = (req, res) => {
-    const id = req.query.id;
-  
-    UserRole.findAll({attributes: ['id', 'userID', 'roleID']})
+    console.log("IM HERE")
+    const userID = req.params.id;
+    var condition = userID ? { userID: { [Op.eq]: userID } } : null;
+
+  console.log(condition)
+    UserRole.findAll({where: condition})
       .then(data => {
         res.send(data);
       })

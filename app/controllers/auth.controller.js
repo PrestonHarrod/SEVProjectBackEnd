@@ -1,9 +1,9 @@
 const db = require("../models");
 const LoginToken = db.loginTokens;
 const User = db.users;
+const UserRoles = db.userRoles;
 const Op = db.Sequelize.Op;
 const authconfig = require('../config/auth.config.js');
-const UserRoles = db.userRoles;
 
 var jwt = require("jsonwebtoken");
 const { user } = require("../models");
@@ -51,16 +51,26 @@ exports.login = async (req, res) => {
         
 
         }
+        this.user = data.dataValues;
+        console.log(this.user)
     }).catch(err => {
         res.status(401).send({
           message: err.message || "Error looking up User"
         });
         return;
     });
-    await UserRoles.findAllRoles(this.user.userID)
-    .then(response => {
-      this.user.roles = response.data;
-    })
+    await UserRoles.findAll({where: {userID:userID}})
+        .then(data => {
+          for (let i = 0; i < data.length; i++) {
+            roles[i] = data[i].roleID
+          }
+        }).catch(err => {
+          res.status(401).send({
+            message: err.message || "Error looking up User"
+          });
+        })
+        
+
     if (!userFound) {
       res.status(401).send({
         message: "User Not Found"
@@ -76,13 +86,14 @@ exports.login = async (req, res) => {
     userID : userID,
     expireDate: tokenExpireDate
   };
-  console.log(login.userID)
+  
   LoginToken.create(login)
     .then(data => {
       let userInfo = {
         user : fName,
         userID : userID,
-        token : login.token
+        token : login.token,
+        roles: roles
       };
       
       res.send(userInfo);
