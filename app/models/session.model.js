@@ -41,6 +41,9 @@ module.exports = (sequelize, Sequelize) => {
       status: {
           type: DataTypes.STRING
       },
+      tutorSlotID: {
+          type: DataTypes.INTEGER
+      },
 
 
 

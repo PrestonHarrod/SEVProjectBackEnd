@@ -23,7 +23,8 @@ exports.create = (req, res) => {
       scheduledStart: req.body.scheduledStart,
       scheduledEnd: req.body.scheduledEnd,
       sessionEnd: req.body.sessionEnd,
-      status: req.body.status
+      status: req.body.status,
+      tutorSlotID : req.body.tutorSlotID,
    
     };
   

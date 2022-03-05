@@ -22,7 +22,10 @@ module.exports = app => {
     // Delete all user
     router.delete("/", tutorSlots.deleteAll);
 
-    router.get("/tutorSlotForTutor/:id",tutorSlots.getAllForTutor)
+    router.get("/tutorSlotUnbook/:id", tutorSlots.findOneForStudent);
+
+    router.get("/tutorSlotForTutor/:id",tutorSlots.getAllForTutor);
   
  +   app.use('/api/tutorSlots', router);
   };
+
