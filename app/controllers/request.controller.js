@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Request
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.requestID) {
+    if (!req.body.studentID) {
       res.status(400).send({
         message: "Content can not be empty!"
       });
@@ -15,13 +15,15 @@ exports.create = (req, res) => {
     // Create a Request
     //comment for autodeploy
     const request = {
-      requestID: req.body.requestID,
       userID: req.body.userID,
-      type: req.body.type,
-      desc: req.body.desc
+      Type: req.body.type,
+      desc: req.body.desc,
+      studentID: req.body.userID,
+      orgID: req.body.orgID
       
     
     };
+    console.log(request.Type)
   
     // Save Request in the database
     Request.create(request)
