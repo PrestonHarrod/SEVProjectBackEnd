@@ -1,6 +1,7 @@
 const db = require("../models");
 const LoginToken = db.loginTokens;
 const User = db.users;
+const UserRoles = db.userRoles;
 const Op = db.Sequelize.Op;
 const authconfig = require('../config/auth.config.js');
 
@@ -36,6 +37,8 @@ exports.login = async (req, res) => {
 
   // Look for an advior in the database
   let userFound = false;
+  let roles = [];
+ 
   await User.findOne({ where : {email:email}})
     .then(data => {
         if (data != null) {
@@ -45,20 +48,37 @@ exports.login = async (req, res) => {
         userID = user.userID
         fName = user.fName;
         userFound = true;
+        
 
         }
+        this.user = data.dataValues;
+        console.log(this.user)
     }).catch(err => {
         res.status(401).send({
           message: err.message || "Error looking up User"
         });
         return;
     });
+    await UserRoles.findAll({where: {userID:userID}})
+        .then(data => {
+          for (let i = 0; i < data.length; i++) {
+            roles[i] = data[i].roleID
+          }
+        }).catch(err => {
+          res.status(401).send({
+            message: err.message || "Error looking up User"
+          });
+        })
+        
+
     if (!userFound) {
       res.status(401).send({
         message: "User Not Found"
       });
       return;
     }
+
+
   let tokenExpireDate =new Date();
   tokenExpireDate.setDate(tokenExpireDate.getDate() + 1);
   const login = {
@@ -66,13 +86,14 @@ exports.login = async (req, res) => {
     userID : userID,
     expireDate: tokenExpireDate
   };
-  console.log(login.userID)
+  
   LoginToken.create(login)
     .then(data => {
       let userInfo = {
         user : fName,
         userID : userID,
-        token : login.token
+        token : login.token,
+        roles: roles
       };
       
       res.send(userInfo);
