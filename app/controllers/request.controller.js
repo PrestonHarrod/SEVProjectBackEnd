@@ -16,7 +16,7 @@ exports.create = (req, res) => {
     //comment for autodeploy
     const request = {
       userID: req.body.userID,
-      Type: req.body.type,
+      Type: req.body.Type,
       desc: req.body.desc,
       studentID: req.body.userID,
       orgID: req.body.orgID
