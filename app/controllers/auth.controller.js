@@ -2,6 +2,7 @@ const db = require("../models");
 const LoginToken = db.loginTokens;
 const User = db.users;
 const UserRoles = db.userRoles;
+const UserOrgs = db.userOrgs;
 const Op = db.Sequelize.Op;
 const authconfig = require('../config/auth.config.js');
 
@@ -38,6 +39,7 @@ exports.login = async (req, res) => {
   // Look for an advior in the database
   let userFound = false;
   let roles = [];
+  let orgs = [];
  
   await User.findOne({ where : {email:email}})
     .then(data => {
@@ -69,6 +71,17 @@ exports.login = async (req, res) => {
             message: err.message || "Error looking up User"
           });
         })
+
+        await UserOrgs.findAll({where: {userID:userID}})
+        .then(data => {
+          for (let i = 0; i < data.length; i++) {
+            orgs[i] = data[i].orgID
+          }
+        }).catch(err => {
+          res.status(401).send({
+            message: err.message || "Error looking up User"
+          });
+        })
         
 
     if (!userFound) {
@@ -93,7 +106,8 @@ exports.login = async (req, res) => {
         user : fName,
         userID : userID,
         token : login.token,
-        roles: roles
+        roles: roles,
+        orgs: orgs
       };
       
       res.send(userInfo);

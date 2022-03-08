@@ -114,12 +114,15 @@ exports.update = (req, res) => {
 
 // Delete a Type with the specified id in the request
 exports.delete = (req, res) => {
-  const id = req.params.id;
+  const userID = req.query.userID;
+  const roleID = req.query.roleID;
   
     UserRole.destroy({
-      where: { id: id }
+      where: { userID: userID,
+       roleID: roleID}
     })
       .then(num => {
+        console.log("Cool: the delete one was called");
         if (num == 1) {
           res.send({
             message: "Type was deleted successfully!"
@@ -144,6 +147,7 @@ exports.deleteAll = (req, res) => {
       truncate: false
     })
       .then(nums => {
+        console.log("whoops: the delete all was called");
         res.send({ message: `${nums} all userRoles were deleted successfully!` });
       })
       .catch(err => {

@@ -26,7 +26,7 @@ module.exports = app => {
   router.get("/tutors/:roleID:orgID", users.findAllTutors);  // router.get("/tutor/subjects/", users.findAllTutorsSubjects);
 
 
-  router.get("/tutorRole/:id", users.findAllByRole);
+  router.get("/tutorRole/:roleID:orgID", users.findAllByRole);
   
 
 
