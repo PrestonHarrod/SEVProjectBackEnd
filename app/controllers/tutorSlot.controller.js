@@ -5,12 +5,6 @@ const Op = db.Sequelize.Op;
 // Create and Save a new TutorSlot
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.tutorSlotID) {
-      res.status(400).send({
-        message: "Content can not be empty!"
-      });
-      return;
-    }
   
     // Create a TutorSlot
     //comment for autodeploy
@@ -43,9 +37,15 @@ exports.create = (req, res) => {
 // Retrieve all tutorSlots from the database.
 exports.findAll = (req, res) => {
 
-    const id = req.query.id;
+  const tutorID = req.query.tutorID;
+  console.log(tutorID + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+  var condition = tutorID ? {
+    tutorID: {
+      [Op.like]: `%${tutorID}%`
+    }
+  } : null;
 
-    TutorSlot.findAll()
+    TutorSlot.findAll({ where: condition})
       .then(data => {
         res.send(data);
       })
@@ -171,9 +171,10 @@ exports.delete = (req, res) => {
 
 // Delete all tutorSlots from the database.
 exports.deleteAll = (req, res) => {
+  const tutorID = req.query.tutorID;
+
     TutorSlot.destroy({
-      where: {},
-      truncate: false
+      where: { tutorID: tutorID },
     })
       .then(nums => {
         res.send({ message: `${nums} tutorSlots were deleted successfully!` });
