@@ -106,29 +106,29 @@ exports.findAllTutors = (req, res) => {
 
     exports.findAllByRole = (req, res) => {
       const roleID = req.params.roleID;
-      const orgID = req.params.orgID;
+      // const orgID = req.params.orgID;
   
       var condition = roleID ? {
         roleID: {
           [Op.eq]: roleID
         }
       } : null;
-      var condition2 = orgID ? {
-        orgID: {
-          [Op.eq]: orgID
-        }
-      } : null;
+      // var condition2 = orgID ? {
+      //   orgID: {
+      //     [Op.eq]: orgID
+      //   }
+      // } : null;
 
       User.findAll({
         raw: true,
         attributes: ['userID', 'fName', 'lName', 'email', 'phoneNumber'], 
         include: 
           [ 
-            {model: userOrgs, as: 'userOrg', attributes: ['userID', 'orgID'], 
-            //  include: 
-            //   {model: orgs, as: 'org', attributes: ['orgID', [Sequelize.fn('GROUP_CONCAT', ' ' , Sequelize.col('name')), 'orgName']]},
-              where: condition2
-            },
+            // {model: userOrgs, as: 'userOrg', attributes: ['userID', 'orgID'], 
+            // //  include: 
+            // //   {model: orgs, as: 'org', attributes: ['orgID', [Sequelize.fn('GROUP_CONCAT', ' ' , Sequelize.col('name')), 'orgName']]},
+            //   where: condition2
+            // },
 
             {model: userRoles, as: 'userRoles', attributes: ['userID', 'roleID'], 
               include: 
