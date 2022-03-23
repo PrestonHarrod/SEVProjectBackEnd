@@ -141,3 +141,41 @@ exports.deleteAll = (req, res) => {
         });
       });
   };
+
+  exports.deleteByTutorSlotID = (req, res) => {
+    const id = req.params.id;
+    
+      Session.destroy({
+        where: { tutorSlotID: id }
+      })
+        .then(num => {
+          if (num == 1) {
+            res.send({
+              message: "Session was deleted successfully!"
+            });
+          } else {
+            res.send({
+              message: `Cannot delete Session with id=${tutorSlotID}. Maybe Session was not found!`
+            });
+          }
+        })
+        .catch(err => {
+          res.status(500).send({
+            message: "Could not delete Session with id=" + tutorSlotID
+          });
+        });
+    };
+    exports.findByTutorSlot = (req, res) => {
+      const id = req.params.id;
+      Session.findAll({where: { tutorSlotID: id }})
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving Sessions."
+        });
+      });
+
+    }

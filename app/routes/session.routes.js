@@ -21,6 +21,10 @@ module.exports = app => {
   
     // Delete all session
     router.delete("/", sessions.deleteAll);
+
+    router.delete("/tutorSlot/:id", sessions.deleteByTutorSlotID);
+
+    router.get("/tutorSlot/:id", sessions.findByTutorSlot);
   
     app.use('/api/sessions', router);
   };

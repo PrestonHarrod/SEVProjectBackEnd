@@ -4,13 +4,13 @@ const Op = db.Sequelize.Op;
 
 // Create and Save a new TSR
 exports.create = (req, res) => {
-    // Validate request
-    if (!req.body.tutorSlotRequestID) {
-      res.status(400).send({
-        message: "Content can not be empty!"
-      });
-      return;
-    }
+  // Validate request
+  if (!req.body.tutorSlotID) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }
   
     // Create a TSR
     //comment for autodeploy

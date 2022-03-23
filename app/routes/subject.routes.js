@@ -21,6 +21,8 @@ module.exports = app => {
   
     // Delete all subject
     router.delete("/", subjects.deleteAll);
+
+    router.get("/subjectName/:subjectName", subjects.findSubjectIDByName);
   
     app.use('/api/subjects', router);
   };
