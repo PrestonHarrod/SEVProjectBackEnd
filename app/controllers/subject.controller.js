@@ -134,3 +134,24 @@ exports.deleteAll = (req, res) => {
         });
       });
   };
+
+  exports.findSubjectIDByName = (req, res) => {
+    const name = req.params.subjectName;
+    var condition = name ? {
+      name: {
+        [Op.eq]: name
+      }
+    } : null;
+    Subject.findAll({where: condition
+
+    }).then(data => {
+      res.send(data);
+     
+  })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving all tutors."
+      });
+    });
+  };
