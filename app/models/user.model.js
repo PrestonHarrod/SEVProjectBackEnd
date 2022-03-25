@@ -26,6 +26,9 @@ module.exports = (sequelize, Sequelize) => {
       phoneNumber:{
         type: DataTypes.STRING
       },
+      contactPref:{
+        type: DataTypes.STRING
+      },
     },
       {
         tableName: 'users'

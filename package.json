@@ -6,7 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "bundle": "mkdir deploy && cp -r  node_modules app server.js package.json package-lock.json tutor-backend.service deploy && rm deploy/app/config/db.config.js && mv deploy/app/config/prod.db.config.js deploy/app/config/db.config.js"
-
   },
   "keywords": [
     "nodejs",
@@ -20,13 +19,14 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
     "express": "^4.17.2",
-    "google-auth-library": "^7.14.0",
-
-    "jsonwebtoken": "^8.5.1",
-    "mysql2": "^2.3.3",
-    "sequelize": "^6.13.0",
     "google-auth-library": "^7.10.1",
-    "mariadb": "^2.5.4"
+    "jsonwebtoken": "^8.5.1",
+    "mariadb": "^2.5.4",
+    "mysql2": "^2.3.3",
+    "nodemailer": "^6.7.3",
+    "sequelize": "^6.13.0",
+    "twilio": "^3.76.0"
   }
 }
