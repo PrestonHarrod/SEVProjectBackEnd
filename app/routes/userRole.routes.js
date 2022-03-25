@@ -12,6 +12,7 @@ module.exports = app => {
 
     //get all roles
     router.get("/roles/:id", userRoles.findAllRoles);
+    
   
     // Retrieve a single Tutorial with id
     router.get("/:id", userRoles.findOne);
