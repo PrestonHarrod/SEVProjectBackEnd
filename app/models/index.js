@@ -34,6 +34,7 @@ db.loginTokens = require("./loginToken.model.js")(sequelize, Sequelize);
 db.userRoles = require("./userRole.model.js")(sequelize, Sequelize);
 db.userOrgs = require("./userOrg.model.js")(sequelize, Sequelize);
 db.tutorSlotRequests = require("./tutorSlotRequest.model.js")(sequelize, Sequelize);
+db.dropIns = require("./dropIn.model.js")(sequelize, Sequelize);
 
 
 //relationships -- tutorSubjecs
