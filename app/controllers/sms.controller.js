@@ -10,7 +10,7 @@ const emailToken = process.env.EMAIL_TOKEN;
 const client = require('twilio')(accountSid, authToken);
 
 exports.findAll = (req, res) => {
-  if (req.contactPref == "Phone") {
+  if (req.body.contactPref == "Text") {
     client.messages
       .create({
         body: 'Tutor Session Scheduled',
