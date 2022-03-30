@@ -35,6 +35,9 @@ module.exports = (sequelize, Sequelize) => {
       },
       isScheduable:{
         type: DataTypes.BOOLEAN
+      },
+      numOfRegistered: {
+        type: DataTypes.INTEGER
       }
 
     },

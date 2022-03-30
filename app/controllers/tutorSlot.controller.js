@@ -17,7 +17,8 @@ exports.create = (req, res) => {
           endTime:req.body.endTime,
           status: req.body.status,
           isScheduable: req.body.isScheduable,
-          tutorSlotRequestID: req.body.tutorSlotRequestID
+          tutorSlotRequestID: req.body.tutorSlotRequestID,
+          numOfRegistered: req.body.numOfRegistered,
    
     };
   
