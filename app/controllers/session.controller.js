@@ -25,6 +25,7 @@ exports.create = (req, res) => {
       sessionEnd: req.body.sessionEnd,
       status: req.body.status,
       tutorSlotID : req.body.tutorSlotID,
+      feedback: req.body.feedback
    
     };
   
@@ -32,6 +33,9 @@ exports.create = (req, res) => {
     Session.create(session)
       .then(data => {
         res.send(data);
+        console.log(session.scheduledStart)
+        console.log(session.scheduledEnd)
+        console.log(session.feedback)
       })
       .catch(err => {
         res.status(500).send({
