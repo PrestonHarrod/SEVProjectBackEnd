@@ -44,7 +44,9 @@ module.exports = (sequelize, Sequelize) => {
       tutorSlotID: {
           type: DataTypes.INTEGER
       },
-
+      feedback: {
+        type: DataTypes.STRING(1000)
+      }
 
 
     },
