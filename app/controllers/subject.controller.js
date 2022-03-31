@@ -4,19 +4,14 @@ const Op = db.Sequelize.Op;
 
 // Create and Save a new Subject
 exports.create = (req, res) => {
-    // Validate request
-    if (!req.body.subjectID) {
-      res.status(400).send({
-        message: "Content can not be empty!"
-      });
-      return;
-    }
+    
   
     // Create a Subject
     //comment for autodeploy
     const subject = {
       subjectID: req.body.subjectID,
       name: req.body.name,
+      subjectGenre: req.body.subjectGenre,
       teacher: req.body.teacher,
       level: req.body.level
    
