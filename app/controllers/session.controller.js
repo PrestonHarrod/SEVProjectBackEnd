@@ -25,7 +25,8 @@ exports.create = (req, res) => {
       sessionEnd: req.body.sessionEnd,
       status: req.body.status,
       tutorSlotID : req.body.tutorSlotID,
-      feedback: req.body.feedback
+      feedback: req.body.feedback,
+      Type: req.body.Type
    
     };
   
