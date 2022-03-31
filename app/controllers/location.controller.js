@@ -5,18 +5,12 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Location
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.locationID) {
-      res.status(400).send({
-        message: "Content can not be empty!"
-      });
-      return;
-    }
   
     // Create a Location
     //comment for autodeploy
     const location = {
       locationID: req.body.locationID,
-      building: req.body.buildingID,
+      building: req.body.building,
       roomNum: req.body.roomNum,
       desc: req.body.desc
    
