@@ -73,7 +73,7 @@ exports.getAllForTutor = (req, res) => {
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error retrieving TutorSlot with id=" + id
+        message: "Error retrieving TutorSlot with id=" + tutorID
       });
     });
 }
