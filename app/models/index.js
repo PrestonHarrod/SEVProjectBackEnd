@@ -22,7 +22,7 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
       return next()
     }
   },
-  timezone: '-05:00', // for writing to database
+  //timezone: '-05:00', // for writing to database
 });
 
 const db = {};
