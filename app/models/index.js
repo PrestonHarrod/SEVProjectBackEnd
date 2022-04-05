@@ -12,6 +12,7 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     acquire: dbConfig.pool.acquire,
     idle: dbConfig.pool.idle
   },
+
   dialectOptions: {
     useUTC: false, // for reading from database
     dateStrings: true,
@@ -23,6 +24,7 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     }
   },
   //timezone: '-05:00', // for writing to database
+
 });
 
 const db = {};
