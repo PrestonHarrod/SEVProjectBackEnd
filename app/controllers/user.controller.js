@@ -80,7 +80,7 @@ exports.findAllTutors = (req, res) => {
             },
           {model: tutorSubjects, as: 'tutorSubject', attributes: ['tutorID', 'subjectID'], 
             include: 
-              {model: subjects, as: 'subject', attributes: ['subjectID', [Sequelize.fn('GROUP_CONCAT', ' ' , Sequelize.col('name')), 'subjectname']]}
+              {model: subjects, as: 'subject', attributes: ['subjectID', [Sequelize.fn('GROUP_CONCAT', ' ' , Sequelize.col('name')), 'name']]}
           }, 
           {model: userRoles, as: 'userRoles', attributes: ['userID', 'roleID'], 
             include: 
