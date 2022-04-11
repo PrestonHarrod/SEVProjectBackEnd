@@ -142,12 +142,12 @@ exports.delete = (req, res) => {
 
 // Delete all Typess from the database.
 exports.deleteAll = (req, res) => {
-  const userID = req.query.userID;
-  const roleID = req.query.roleID;
+  //delete all where the userID = userID
+  console.log("you hit the right place!");
+  const userID = req.query.id;
 
     UserRole.destroy({
-      where: { userID: userID,
-       roleID: roleID},
+      where: { userID: userID},
       truncate: false
     })
       .then(nums => {

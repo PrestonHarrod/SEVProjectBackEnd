@@ -20,11 +20,11 @@ module.exports = app => {
     // Update a Tutorial with id
     router.put("/:id", userRoles.update);
   
-    // Delete a Tutorial with id
+    // Delete aall 
     router.delete("/:id", userRoles.delete);
   
-    // Delete all user
-    router.delete("/", userRoles.deleteAll);
+    // Delete all users with an
+    router.delete("/deleteAll/:id", userRoles.deleteAll);
   
     app.use('/api/userRoles', router);
   };
