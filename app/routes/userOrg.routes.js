@@ -20,7 +20,7 @@ module.exports = app => {
     router.delete("/:id", userOrgs.delete);
   
     // Delete all user
-    router.delete("/", userOrgs.deleteAll);
+    router.delete("/deleteAll/:id", userOrgs.deleteAll);
 
     router.get("/student/:id", userOrgs.findStudentsOrgID);
   
