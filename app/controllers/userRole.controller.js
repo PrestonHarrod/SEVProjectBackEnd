@@ -54,7 +54,7 @@ exports.findAll = (req, res) => {
   };
 
   exports.findAllRoles = (req, res) => {
-    const id = req.query.id;
+    const id = req.params.id;
   
     UserRole.findAll({attributes: ['roleID']},{where: { userID: id }} )
       .then(data => {
@@ -144,14 +144,14 @@ exports.delete = (req, res) => {
 exports.deleteAll = (req, res) => {
   //delete all where the userID = userID
   console.log("you hit the right place!");
-  const userID = req.query.id;
+  const userID = req.params.id;
+  console.log("HERE IS THE USERID: " + userID);
 
     UserRole.destroy({
       where: { userID: userID},
       truncate: false
     })
       .then(nums => {
-        console.log("whoops: the delete all was called");
         res.send({ message: `${nums} all userRoles were deleted successfully!` });
       })
       .catch(err => {
