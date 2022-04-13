@@ -105,8 +105,8 @@ exports.update = (req, res) => {
 
 // Delete a Type with the specified id in the request
 exports.delete = (req, res) => {
-  const userID = req.query.userID;
-  const orgID = req.query.orgID;
+  const userID = req.params.userID;
+  const orgID = req.params.orgID;
 
   UserOrg.destroy({
     where: {
@@ -136,7 +136,7 @@ exports.delete = (req, res) => {
 // Delete all Typess from the database.
 exports.deleteAll = (req, res) => {
   //delete all where the userID = userID
-  const userID = req.query.id;
+  const userID = req.params.id;
 
   UserOrg.destroy({
     where: { userID: userID},
