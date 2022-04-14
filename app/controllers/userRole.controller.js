@@ -54,9 +54,10 @@ exports.findAll = (req, res) => {
   };
 
   exports.findAllRoles = (req, res) => {
-    const id = req.params.id;
+    const userID = req.params.id;
+    var condition = userID ? { userID: { [Op.eq]: userID } } : null;
   
-    UserRole.findAll({attributes: ['roleID']},{where: { userID: id }} )
+    UserRole.findAll({where: condition})
       .then(data => {
         res.send(data);
       })
