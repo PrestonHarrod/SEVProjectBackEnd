@@ -13,6 +13,9 @@ module.exports = app => {
   // Retrieve a single Tutorial with id
   router.get("/:id", users.findOne);
 
+    // find user by email
+    router.get("/findUserByEmail/:email", users.findOneByEmail);
+
   // Update a Tutorial with id
   router.put("/:id", users.update);
 
