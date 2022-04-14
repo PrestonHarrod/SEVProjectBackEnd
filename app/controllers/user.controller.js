@@ -169,6 +169,24 @@ exports.findOne = (req, res) => {
     });
 };
 
+// Find a single User with an id
+exports.findOneByEmail = (req, res) => {
+  const email = req.params.email;
+  console.log(email);
+  User.findAll({where: { email: email }} )
+  .then(data => {
+    res.send(data);
+  })
+  .catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while retrieving all roles from an ID."
+    });
+  });
+};
+
+
+
 
 // Update a User by the id in the request
 exports.update = (req, res) => {
