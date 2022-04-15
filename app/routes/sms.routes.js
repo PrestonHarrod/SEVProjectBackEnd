@@ -5,7 +5,7 @@ module.exports = app => {
     var router = require("express").Router();
   
     // Create a new Tutorial
-    router.post("/", sms.findAll);
+    router.post("/sendMessage", sms.findAll);
   
     app.use('/api/sms', router);
   };

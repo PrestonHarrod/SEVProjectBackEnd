@@ -13,7 +13,7 @@ exports.findAll = (req, res) => {
   if (req.body.contactPref == "Text") {
     client.messages
       .create({
-        body: 'Tutor Session Scheduled',
+        body: req.body.subject + ": " + req.body.message,
         from: phoneNum,
         to: req.body.phoneNumber
       })
@@ -33,8 +33,8 @@ exports.findAll = (req, res) => {
     var mailOptions = {
       from: "octutorservice@gmail.com",
       to: req.body.email,
-      subject: "Tutor Session Scheduled",
-      text: "",
+      subject: req.body.subject,
+      text: req.body.message,
     };
 
 
