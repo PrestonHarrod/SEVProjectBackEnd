@@ -19,7 +19,9 @@ exports.create = (req, res) => {
       Type: req.body.type,
       desc: req.body.desc,
       studentID: req.body.userID,
-      orgID: req.body.orgID
+      orgID: req.body.orgID,
+      supervisorID: req.body.supervisorID,
+      status: req.body.status,
       
     
     };
@@ -54,10 +56,28 @@ exports.findAll = (req, res) => {
       });
   };
 
+  exports.getRequestsByOrg = (req, res) => {
+    const orgID = req.params.id;
+
+
+  
+    Request.findAll({where: { orgID: orgID }})
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving Users."
+        });
+      });
+  };
+
 
 // Find a single Request with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
+    
 
   Request.findByPk(id)
     .then(data => {
