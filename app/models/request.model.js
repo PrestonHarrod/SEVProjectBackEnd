@@ -20,6 +20,13 @@ module.exports = (sequelize, Sequelize) => {
       desc: {
           type:DataTypes.STRING
       },
+      supervisorID: {
+        type: DataTypes.INTEGER
+      },
+      status: {
+        type:DataTypes.STRING
+    },
+
 
 
 
